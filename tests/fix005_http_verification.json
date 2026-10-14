@@ -1,0 +1,260 @@
+{
+  "at": "2026-10-14T16:30:05.657100+08:00",
+  "service": {
+    "active_count": 0,
+    "draft_count": 7,
+    "model": null,
+    "app_version": "c2afb025bd99"
+  },
+  "protected_unchanged": true,
+  "records": [
+    {
+      "id": "EVAL-023",
+      "request": {
+        "question": "五號是非銀行營業日，薪水會往後延嗎？",
+        "mode": "draft",
+        "history": [],
+        "client_version": "c2afb025bd99"
+      },
+      "raw_response": "{\"retrieval\": {\"original\": \"五號是非銀行營業日,薪水會往後延嗎?\", \"expanded\": \"五號是非銀行營業日,薪水會往後延嗎? 薪資發放\", \"expanded_terms\": [\"薪資發放\"], \"intent_ids\": [\"payroll-payment-date\"], \"target_ids\": [\"HR-001\"], \"candidate_ids\": [\"HR-001\", \"HR-002\", \"HR-003\", \"HR-004\", \"HR-005\", \"HR-006\"], \"candidate_intents\": [\"payroll-payment-date\", \"payroll-shortage\"]}, \"status\": \"EXTRACTED\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n關於薪資發放：\\n每月五日發放前一個月份薪資。遇非銀行營業日，提前至前一銀行營業日。由員工提供本人帳戶。\\n來源：HR-001｜0.1.0｜regulations/HR.md\", \"sources\": [{\"source_id\": \"HR-001\", \"regulation_id\": \"HR\", \"version\": \"0.1.0\", \"source\": \"regulations/HR.md\", \"effective_date\": null, \"git_commit\": null}], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n薪資不會因發薪日遇非銀行營業日而往後延，會提前到前一個銀行營業日發放。每月五日發的是前一個月份的薪資，請提供本人的薪資帳戶。\\n依據：HR-001｜版本 0.1.0\", \"evidence\": [{\"source_id\": \"HR-001\", \"version\": \"0.1.0\", \"text\": \"每月五日發放前一個月份薪資。遇非銀行營業日，提前至前一銀行營業日。由員工提供本人帳戶。\"}]}",
+      "response": {
+        "retrieval": {
+          "original": "五號是非銀行營業日,薪水會往後延嗎?",
+          "expanded": "五號是非銀行營業日,薪水會往後延嗎? 薪資發放",
+          "expanded_terms": [
+            "薪資發放"
+          ],
+          "intent_ids": [
+            "payroll-payment-date"
+          ],
+          "target_ids": [
+            "HR-001"
+          ],
+          "candidate_ids": [
+            "HR-001",
+            "HR-002",
+            "HR-003",
+            "HR-004",
+            "HR-005",
+            "HR-006"
+          ],
+          "candidate_intents": [
+            "payroll-payment-date",
+            "payroll-shortage"
+          ]
+        },
+        "status": "EXTRACTED",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n關於薪資發放：\n每月五日發放前一個月份薪資。遇非銀行營業日，提前至前一銀行營業日。由員工提供本人帳戶。\n來源：HR-001｜0.1.0｜regulations/HR.md",
+        "sources": [
+          {
+            "source_id": "HR-001",
+            "regulation_id": "HR",
+            "version": "0.1.0",
+            "source": "regulations/HR.md",
+            "effective_date": null,
+            "git_commit": null
+          }
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n薪資不會因發薪日遇非銀行營業日而往後延，會提前到前一個銀行營業日發放。每月五日發的是前一個月份的薪資，請提供本人的薪資帳戶。\n依據：HR-001｜版本 0.1.0",
+        "evidence": [
+          {
+            "source_id": "HR-001",
+            "version": "0.1.0",
+            "text": "每月五日發放前一個月份薪資。遇非銀行營業日，提前至前一銀行營業日。由員工提供本人帳戶。"
+          }
+        ]
+      },
+      "result": "通過"
+    },
+    {
+      "id": "EVAL-024",
+      "request": {
+        "question": "我的薪資少發了，只能等下個月補嗎？",
+        "mode": "draft",
+        "history": [],
+        "client_version": "c2afb025bd99"
+      },
+      "raw_response": "{\"retrieval\": {\"original\": \"我的薪資少發了,只能等下個月補嗎?\", \"expanded\": \"我的薪資少發了,只能等下個月補嗎? 薪資異常\", \"expanded_terms\": [\"薪資異常\"], \"intent_ids\": [\"payroll-shortage\"], \"target_ids\": [\"HR-002\"], \"candidate_ids\": [\"HR-001\", \"HR-002\", \"HR-003\", \"HR-004\", \"HR-005\", \"HR-006\"], \"candidate_intents\": [\"payroll-payment-date\", \"payroll-shortage\"]}, \"status\": \"EXTRACTED\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n關於薪資異常：\\n聯繫 HR 薪酬承辦人員。必要時由財務部門協助。應依相關法令適時處理薪資差額。不得擅自認定只能等下個月補發。\\n來源：HR-002｜0.1.0｜regulations/HR.md\", \"sources\": [{\"source_id\": \"HR-002\", \"regulation_id\": \"HR\", \"version\": \"0.1.0\", \"source\": \"regulations/HR.md\", \"effective_date\": null, \"git_commit\": null}], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n不能直接認定只能等下個月補發。薪資不對或少發時，請聯繫 HR 薪酬承辦人員，必要時由財務部門協助，差額應依相關法令適時處理。目前提供的規章沒有固定補發期限，我無法替你確認日期。\\n依據：HR-002｜版本 0.1.0\", \"evidence\": [{\"source_id\": \"HR-002\", \"version\": \"0.1.0\", \"text\": \"聯繫 HR 薪酬承辦人員。必要時由財務部門協助。應依相關法令適時處理薪資差額。不得擅自認定只能等下個月補發。\"}]}",
+      "response": {
+        "retrieval": {
+          "original": "我的薪資少發了,只能等下個月補嗎?",
+          "expanded": "我的薪資少發了,只能等下個月補嗎? 薪資異常",
+          "expanded_terms": [
+            "薪資異常"
+          ],
+          "intent_ids": [
+            "payroll-shortage"
+          ],
+          "target_ids": [
+            "HR-002"
+          ],
+          "candidate_ids": [
+            "HR-001",
+            "HR-002",
+            "HR-003",
+            "HR-004",
+            "HR-005",
+            "HR-006"
+          ],
+          "candidate_intents": [
+            "payroll-payment-date",
+            "payroll-shortage"
+          ]
+        },
+        "status": "EXTRACTED",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n關於薪資異常：\n聯繫 HR 薪酬承辦人員。必要時由財務部門協助。應依相關法令適時處理薪資差額。不得擅自認定只能等下個月補發。\n來源：HR-002｜0.1.0｜regulations/HR.md",
+        "sources": [
+          {
+            "source_id": "HR-002",
+            "regulation_id": "HR",
+            "version": "0.1.0",
+            "source": "regulations/HR.md",
+            "effective_date": null,
+            "git_commit": null
+          }
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n不能直接認定只能等下個月補發。薪資不對或少發時，請聯繫 HR 薪酬承辦人員，必要時由財務部門協助，差額應依相關法令適時處理。目前提供的規章沒有固定補發期限，我無法替你確認日期。\n依據：HR-002｜版本 0.1.0",
+        "evidence": [
+          {
+            "source_id": "HR-002",
+            "version": "0.1.0",
+            "text": "聯繫 HR 薪酬承辦人員。必要時由財務部門協助。應依相關法令適時處理薪資差額。不得擅自認定只能等下個月補發。"
+          }
+        ]
+      },
+      "result": "通過"
+    },
+    {
+      "id": "DATE-VARIANT",
+      "request": {
+        "question": "5號剛好週末，我的薪水會延後嗎？",
+        "mode": "draft",
+        "history": [],
+        "client_version": "c2afb025bd99"
+      },
+      "raw_response": "{\"retrieval\": {\"original\": \"5號剛好週末,我的薪水會延後嗎?\", \"expanded\": \"5號剛好週末,我的薪水會延後嗎? 薪資發放\", \"expanded_terms\": [\"薪資發放\"], \"intent_ids\": [\"payroll-payment-date\"], \"target_ids\": [\"HR-001\"], \"candidate_ids\": [\"HR-001\", \"HR-002\", \"HR-003\", \"HR-004\", \"HR-005\", \"HR-006\"], \"candidate_intents\": [\"payroll-payment-date\", \"payroll-shortage\"]}, \"status\": \"EXTRACTED\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n關於薪資發放：\\n每月五日發放前一個月份薪資。遇非銀行營業日，提前至前一銀行營業日。由員工提供本人帳戶。\\n來源：HR-001｜0.1.0｜regulations/HR.md\", \"sources\": [{\"source_id\": \"HR-001\", \"regulation_id\": \"HR\", \"version\": \"0.1.0\", \"source\": \"regulations/HR.md\", \"effective_date\": null, \"git_commit\": null}], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n薪資不會因發薪日遇非銀行營業日而往後延，會提前到前一個銀行營業日發放。每月五日發的是前一個月份的薪資，請提供本人的薪資帳戶。\\n依據：HR-001｜版本 0.1.0\", \"evidence\": [{\"source_id\": \"HR-001\", \"version\": \"0.1.0\", \"text\": \"每月五日發放前一個月份薪資。遇非銀行營業日，提前至前一銀行營業日。由員工提供本人帳戶。\"}]}",
+      "response": {
+        "retrieval": {
+          "original": "5號剛好週末,我的薪水會延後嗎?",
+          "expanded": "5號剛好週末,我的薪水會延後嗎? 薪資發放",
+          "expanded_terms": [
+            "薪資發放"
+          ],
+          "intent_ids": [
+            "payroll-payment-date"
+          ],
+          "target_ids": [
+            "HR-001"
+          ],
+          "candidate_ids": [
+            "HR-001",
+            "HR-002",
+            "HR-003",
+            "HR-004",
+            "HR-005",
+            "HR-006"
+          ],
+          "candidate_intents": [
+            "payroll-payment-date",
+            "payroll-shortage"
+          ]
+        },
+        "status": "EXTRACTED",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n關於薪資發放：\n每月五日發放前一個月份薪資。遇非銀行營業日，提前至前一銀行營業日。由員工提供本人帳戶。\n來源：HR-001｜0.1.0｜regulations/HR.md",
+        "sources": [
+          {
+            "source_id": "HR-001",
+            "regulation_id": "HR",
+            "version": "0.1.0",
+            "source": "regulations/HR.md",
+            "effective_date": null,
+            "git_commit": null
+          }
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n薪資不會因發薪日遇非銀行營業日而往後延，會提前到前一個銀行營業日發放。每月五日發的是前一個月份的薪資，請提供本人的薪資帳戶。\n依據：HR-001｜版本 0.1.0",
+        "evidence": [
+          {
+            "source_id": "HR-001",
+            "version": "0.1.0",
+            "text": "每月五日發放前一個月份薪資。遇非銀行營業日，提前至前一銀行營業日。由員工提供本人帳戶。"
+          }
+        ]
+      },
+      "result": "通過"
+    },
+    {
+      "id": "SHORTAGE-VARIANT",
+      "request": {
+        "question": "薪水少給了要找誰補發？",
+        "mode": "draft",
+        "history": [],
+        "client_version": "c2afb025bd99"
+      },
+      "raw_response": "{\"retrieval\": {\"original\": \"薪水少給了要找誰補發?\", \"expanded\": \"薪水少給了要找誰補發? 薪資異常\", \"expanded_terms\": [\"薪資異常\"], \"intent_ids\": [\"payroll-shortage\"], \"target_ids\": [\"HR-002\"], \"candidate_ids\": [\"HR-001\", \"HR-002\", \"HR-003\", \"HR-004\", \"HR-005\", \"HR-006\"], \"candidate_intents\": [\"payroll-payment-date\", \"payroll-shortage\"]}, \"status\": \"EXTRACTED\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n關於薪資異常：\\n聯繫 HR 薪酬承辦人員。必要時由財務部門協助。應依相關法令適時處理薪資差額。不得擅自認定只能等下個月補發。\\n來源：HR-002｜0.1.0｜regulations/HR.md\", \"sources\": [{\"source_id\": \"HR-002\", \"regulation_id\": \"HR\", \"version\": \"0.1.0\", \"source\": \"regulations/HR.md\", \"effective_date\": null, \"git_commit\": null}], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n不能直接認定只能等下個月補發。薪資不對或少發時，請聯繫 HR 薪酬承辦人員，必要時由財務部門協助，差額應依相關法令適時處理。目前提供的規章沒有固定補發期限，我無法替你確認日期。\\n依據：HR-002｜版本 0.1.0\", \"evidence\": [{\"source_id\": \"HR-002\", \"version\": \"0.1.0\", \"text\": \"聯繫 HR 薪酬承辦人員。必要時由財務部門協助。應依相關法令適時處理薪資差額。不得擅自認定只能等下個月補發。\"}]}",
+      "response": {
+        "retrieval": {
+          "original": "薪水少給了要找誰補發?",
+          "expanded": "薪水少給了要找誰補發? 薪資異常",
+          "expanded_terms": [
+            "薪資異常"
+          ],
+          "intent_ids": [
+            "payroll-shortage"
+          ],
+          "target_ids": [
+            "HR-002"
+          ],
+          "candidate_ids": [
+            "HR-001",
+            "HR-002",
+            "HR-003",
+            "HR-004",
+            "HR-005",
+            "HR-006"
+          ],
+          "candidate_intents": [
+            "payroll-payment-date",
+            "payroll-shortage"
+          ]
+        },
+        "status": "EXTRACTED",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n關於薪資異常：\n聯繫 HR 薪酬承辦人員。必要時由財務部門協助。應依相關法令適時處理薪資差額。不得擅自認定只能等下個月補發。\n來源：HR-002｜0.1.0｜regulations/HR.md",
+        "sources": [
+          {
+            "source_id": "HR-002",
+            "regulation_id": "HR",
+            "version": "0.1.0",
+            "source": "regulations/HR.md",
+            "effective_date": null,
+            "git_commit": null
+          }
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n不能直接認定只能等下個月補發。薪資不對或少發時，請聯繫 HR 薪酬承辦人員，必要時由財務部門協助，差額應依相關法令適時處理。目前提供的規章沒有固定補發期限，我無法替你確認日期。\n依據：HR-002｜版本 0.1.0",
+        "evidence": [
+          {
+            "source_id": "HR-002",
+            "version": "0.1.0",
+            "text": "聯繫 HR 薪酬承辦人員。必要時由財務部門協助。應依相關法令適時處理薪資差額。不得擅自認定只能等下個月補發。"
+          }
+        ]
+      },
+      "result": "通過"
+    }
+  ]
+}
