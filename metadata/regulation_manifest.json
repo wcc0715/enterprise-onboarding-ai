@@ -192,7 +192,17 @@
         "git_commit": null,
         "published_at": null
       },
-      "active": null,
+      "active": {
+        "version": "0.1.0",
+        "status": "ACTIVE",
+        "source": "regulations/releases/TRAIN/0.1.0.md",
+        "updated_date": "2026-10-14",
+        "sha256": "fde690cd3db3107002487fbc830e7bb410a1f72b3b59f949d2c0d3d2b754ee5a",
+        "effective_date": "2026-10-14",
+        "summary": "使用者確認發布本機模擬正式規章；非真實企業制度或法律合規認證",
+        "git_commit": "40d2016ab87c793b328d5c8ea30e378a999843fe",
+        "published_at": "2026-10-14T09:42:21.019276+00:00"
+      },
       "history": []
     }
   ]
