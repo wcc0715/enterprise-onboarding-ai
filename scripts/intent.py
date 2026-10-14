@@ -31,3 +31,13 @@ def personal_record_request(question):
         return None
     others=any(t in q for t in ['同事','部屬','所有員工','員工的','大家的','其他人的','他的','她的'])
     return 'others' if others else 'self'
+
+
+def restricted_action_request(question):
+    """辨識要求小助理實際設定／核准，不驗證或接受對話職務宣稱。"""
+    q=retrieval.normalize(question)
+    if '權限' in q and any(t in q for t in ['幫我開','幫我設定','幫我提升','直接開','立即開','現在開','授予我','給我最高','給我管理員']):
+        return 'access_change'
+    if any(t in q for t in ['設備','筆電','電腦']) and any(t in q for t in ['批准','核准','認定','宣布']) and any(t in q for t in ['我是主管','我是總經理','全部','所有','都不是','不用it','直接攜出']):
+        return 'equipment_classification'
+    return None

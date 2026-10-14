@@ -98,6 +98,22 @@ def respond(question, root=ROOT, mode='active'):
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    action=intent.restricted_action_request(question)
+    if action:
+        key='SEC-005' if action=='access_change' else 'IT-006'
+        c=next((c for c in chunks if c['source_id']==key),None)
+        if c:
+            if action=='access_change':
+                intro='我可以幫你整理申請方式，但目前沒有連接系統管理功能，無法替你開通或調整權限，也無法確認你的存取授權。請依規章讓主管確認業務需求，再由 IT 評估設定，不是直接開最高權限。'
+                body=c['text'].split('\n',1)[1].strip()
+                display=intro+'\n\n'+body
+            else:
+                intro='我可以幫你確認流程，但不能替你認定設備分類或核准攜出。主管同意也不能單獨取代 IT 對敏感設備的認定與評估核准；目前仍需要依設備的實際風險與授權範圍處理。'
+                body=c['text'].split('\n',1)[1].strip()
+                selected=[line[3:] for line in c['text'].splitlines() if line.startswith(('2. ','3. ','4. ','6. '))]
+                display=intro+'\n\n'+'\n'.join(selected) if selected else intro+'\n\n'+body
+            citation=f'\n依據：{key}｜版本 {c["version"]}'
+            return dict(status='ACTION_UNAVAILABLE',answer=intro+'\n\n'+body+citation,display_answer=display+citation,sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']}],capability_limit='NO_ADMIN_OR_APPROVAL_ACTIONS',evidence=[dict(source_id=key,version=c['version'],text=body)])
     if '敏感設備' in q and any(t in q for t in ['是什麼','什麼是','哪些','怎麼判斷','算不算','是指','定義','哪種','什麼樣']):
         c=next((c for c in chunks if c['source_id']=='IT-006'),None)
         known_style=store.read(root/'config/answer_style.json')['entries'].get('IT-006')
