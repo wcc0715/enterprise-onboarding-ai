@@ -233,6 +233,11 @@ def respond(question, root=ROOT, mode='active'):
             if item['id']=='UNK-009':
                 answer='目前提供的公司規章尚未訂定統一補助上限。建議向 HR 確認。'
             return dict(status='UNRESOLVED',answer=answer,sources=[],unresolved_id=item['id'])
+    vague_equipment={'設備','我需要設備','需要設備','我要設備','我想申請設備','我要申請設備','申請設備','我需要工作設備','我想申請工作設備'}
+    if query['original'].rstrip('？?！!。') in vague_equipment and any(c['source_id']=='IT-004' for c in chunks):
+        text='可以，我幫你確認設備申請流程。你需要哪種設備、準備用來做什麼？會帶出公司使用嗎？先確認這些資訊，才能區分設備配置與攜出授權；目前還不能保證設備一定能提供。'
+        status='CLARIFY' if '申請' in query['original'] else 'CLARIFY_INTENT'
+        return dict(status=status,answer=text,display_answer=text,sources=[],candidate_topics=['設備申請'],candidate_source_ids=['IT-004'],conversation_topic='設備申請',pending_fields=['equipment_type','purpose','carry_out'])
     if query['original'] in ['請假', '我要請假', '我要申請設備', '申請設備']:
         return dict(status='CLARIFY',answer='我理解您可能想詢問請假申請或設備申請流程，是否正確？請補充假別或設備類型，以便查找對應規章。請假細節可向 HR 確認。',sources=[])
     hits=retrieval.rank(chunks,query,vocabulary)

@@ -1,0 +1,77 @@
+{
+  "service": {
+    "active_count": 0,
+    "draft_count": 7,
+    "model": null,
+    "app_version": "576f79ed30b5"
+  },
+  "protected_unchanged": true,
+  "records": [
+    {
+      "id": "EVAL-048",
+      "request": {
+        "question": "我需要設備",
+        "mode": "draft",
+        "history": [],
+        "client_version": "576f79ed30b5"
+      },
+      "raw_response": "{\"status\": \"CLARIFY_INTENT\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n可以，我幫你確認設備申請流程。你需要哪種設備、準備用來做什麼？會帶出公司使用嗎？先確認這些資訊，才能區分設備配置與攜出授權；目前還不能保證設備一定能提供。\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n可以，我幫你確認設備申請流程。你需要哪種設備、準備用來做什麼？會帶出公司使用嗎？先確認這些資訊，才能區分設備配置與攜出授權；目前還不能保證設備一定能提供。\", \"sources\": [], \"candidate_topics\": [\"設備申請\"], \"candidate_source_ids\": [\"IT-004\"], \"conversation_topic\": \"設備申請\", \"pending_fields\": [\"equipment_type\", \"purpose\", \"carry_out\"], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "CLARIFY_INTENT",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n可以，我幫你確認設備申請流程。你需要哪種設備、準備用來做什麼？會帶出公司使用嗎？先確認這些資訊，才能區分設備配置與攜出授權；目前還不能保證設備一定能提供。",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n可以，我幫你確認設備申請流程。你需要哪種設備、準備用來做什麼？會帶出公司使用嗎？先確認這些資訊，才能區分設備配置與攜出授權；目前還不能保證設備一定能提供。",
+        "sources": [],
+        "candidate_topics": [
+          "設備申請"
+        ],
+        "candidate_source_ids": [
+          "IT-004"
+        ],
+        "conversation_topic": "設備申請",
+        "pending_fields": [
+          "equipment_type",
+          "purpose",
+          "carry_out"
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "id": "VARIANT",
+      "request": {
+        "question": "我想申請工作設備",
+        "mode": "draft",
+        "history": [],
+        "client_version": "576f79ed30b5"
+      },
+      "raw_response": "{\"status\": \"CLARIFY\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n可以，我幫你確認設備申請流程。你需要哪種設備、準備用來做什麼？會帶出公司使用嗎？先確認這些資訊，才能區分設備配置與攜出授權；目前還不能保證設備一定能提供。\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n可以，我幫你確認設備申請流程。你需要哪種設備、準備用來做什麼？會帶出公司使用嗎？先確認這些資訊，才能區分設備配置與攜出授權；目前還不能保證設備一定能提供。\", \"sources\": [], \"candidate_topics\": [\"設備申請\"], \"candidate_source_ids\": [\"IT-004\"], \"conversation_topic\": \"設備申請\", \"pending_fields\": [\"equipment_type\", \"purpose\", \"carry_out\"], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "CLARIFY",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n可以，我幫你確認設備申請流程。你需要哪種設備、準備用來做什麼？會帶出公司使用嗎？先確認這些資訊，才能區分設備配置與攜出授權；目前還不能保證設備一定能提供。",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n可以，我幫你確認設備申請流程。你需要哪種設備、準備用來做什麼？會帶出公司使用嗎？先確認這些資訊，才能區分設備配置與攜出授權；目前還不能保證設備一定能提供。",
+        "sources": [],
+        "candidate_topics": [
+          "設備申請"
+        ],
+        "candidate_source_ids": [
+          "IT-004"
+        ],
+        "conversation_topic": "設備申請",
+        "pending_fields": [
+          "equipment_type",
+          "purpose",
+          "carry_out"
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    }
+  ]
+}

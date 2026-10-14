@@ -36,7 +36,7 @@ class AssistantTests(unittest.TestCase):
         cases=[
             ('上班時間？','EXTRACTED','八小時'),
             ('可以共用帳密？','EXTRACTED','不得共用'),
-            ('我要申請設備','CLARIFY','設備類型'),
+            ('我要申請設備','CLARIFY','哪種設備'),
             ('緊急請假來不及登記？','EXTRACTED','先通知主管'),
             ('特休一定要提前三天批准？','EXTRACTED','非強制期限'),
             ('教育訓練一年補助多少錢？','UNRESOLVED','尚未訂定統一補助上限'),
