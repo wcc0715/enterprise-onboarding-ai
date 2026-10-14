@@ -10,6 +10,7 @@ from urllib.error import URLError
 import assistant
 import conversation
 import presentation
+import cloud_generation
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -17,7 +18,7 @@ def app_version():
     files=sorted((ROOT/'web').glob('*'))+sorted((ROOT/'scripts').glob('*.py'))+sorted((ROOT/'config').glob('*.json'))
     return hashlib.sha256(b''.join(p.read_bytes() for p in files if p.is_file())).hexdigest()[:12]
 
-def answer(question,mode='active',model=None,root=ROOT,history=None):
+def answer(question,mode='active',model=None,root=ROOT,history=None,provider='local'):
     effective,context=conversation.resolve(question,history or [],root,mode)
     result=assistant.respond(effective,root,mode)
     result['context_topic']=context
@@ -27,7 +28,7 @@ def answer(question,mode='active',model=None,root=ROOT,history=None):
         lookup={c['source_id']:c for c in chunks}
         candidates=[lookup[s['source_id']] for s in result['sources']]
         selected=candidates
-        if model:
+        if model and provider=='local':
             try:
                 # 不讓模型自由生成企業制度：只接受已檢索來源 ID。
                 payload={'model':model,'stream':False,'format':'json','options':{'temperature':0},
@@ -54,6 +55,16 @@ def answer(question,mode='active',model=None,root=ROOT,history=None):
             sections.append(f'關於{title}：\n{body}\n來源：{c["source_id"]}｜{c["version"]}｜{c["source"]}')
         result['answer']='\n\n'.join(sections)
         result['display_answer'],result['evidence']=presentation.render(selected,root,effective)
+        if model and provider=='cloud':
+            try:
+                generated=cloud_generation.generate(effective,selected,model)
+                result['display_answer']=generated+'\n依據：'+'、'.join(c['source_id']+'｜'+c['version'] for c in selected)+'\n（雲端模型生成；來源格式已檢查，請對照完整條文。）'
+                result['engine']='Ollama Cloud 生成'
+                result['model_status']='已連接 '+model
+                result['generation_review_required']=True
+            except Exception:
+                result['model_status']='雲端模型未連接或回答檢查未通過，已回退到規章回答'
+                result['generation_fallback']=True
         result['sources']=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in selected]
     if context and 'display_answer' in result:
         result['display_answer']=f'接著你剛才問的「{context}」：\n\n'+result['display_answer']
@@ -67,6 +78,7 @@ def answer(question,mode='active',model=None,root=ROOT,history=None):
 
 class Handler(BaseHTTPRequestHandler):
     model=None
+    provider='local'
     def log_message(self,*args):
         pass  # 不記錄聊天內容、問題或請求路徑
     def send_json(self,status,data):
@@ -87,7 +99,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path=='/api/status':
             m=assistant.store.read(ROOT/'metadata/regulation_manifest.json')
             return self.send_json(200,{'active_count':sum(bool(r['active']) for r in m['regulations']),
-                                       'draft_count':len(m['regulations']),'model':self.model,'app_version':app_version()})
+                                       'draft_count':len(m['regulations']),'model':self.model,'provider':self.provider,'key_configured':bool(cloud_generation.os.environ.get('OLLAMA_API_KEY')),'app_version':app_version()})
         files={'/':'index.html','/app.js':'app.js','/style.css':'style.css'}
         if self.path not in files:return self.send_json(404,{'error':'找不到頁面'})
         path=ROOT/'web'/files[self.path];body=path.read_bytes()
@@ -109,7 +121,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_json(200,dict(status='CLIENT_UPDATE_REQUIRED',answer='聊天頁已更新，目前這個頁面沒有載入新版上下文功能。請重新整理頁面，再依序提問；這不是規章沒有答案。',sources=[],mode=mode,engine='頁面版本確認',model_status='未啟用'))
             history=data.get('history',[])
             if not isinstance(history,list) or len(history)>6 or any(not isinstance(q,str) or len(q)>1000 for q in history):raise ValueError('對話格式不正確')
-            self.send_json(200,answer(question,mode,self.model,history=history))
+            self.send_json(200,answer(question,mode,self.model,history=history,provider=self.provider))
         except (ValueError,TypeError,KeyError):self.send_json(400,{'error':'問題或模式格式不正確'})
         except OSError:self.send_json(503,{'error':'來源資料暫時不可讀，請確認專案資料'})
 
@@ -117,7 +129,8 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port',type=int,default=8765)
     parser.add_argument('--model',help='可選：已安裝在本機 Ollama 的模型名稱，不自動下載')
-    args=parser.parse_args();Handler.model=args.model
+    parser.add_argument('--provider',choices=['local','cloud'],default='local')
+    args=parser.parse_args();Handler.model=args.model;Handler.provider=args.provider
     server=ThreadingHTTPServer(('127.0.0.1',args.port),Handler)
     print(f'聊天助理：http://127.0.0.1:{args.port}',flush=True)
     try:server.serve_forever()
