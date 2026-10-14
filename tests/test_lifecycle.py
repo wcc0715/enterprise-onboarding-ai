@@ -20,6 +20,12 @@ class Lifecycle(unittest.TestCase):
         self.tmp=tempfile.TemporaryDirectory()
         self.root=(Path(self.tmp.name)/'fixture').resolve()
         shutil.copytree(PROJECT,self.root,ignore=shutil.ignore_patterns('.git','__pycache__'))
+        # 測試從隔離的未發布狀態開始，不依賴真實專案的發布進度。
+        manifest_path=self.root/'metadata/regulation_manifest.json'
+        manifest=json.loads(manifest_path.read_text())
+        for regulation in manifest['regulations']:regulation['active']=None
+        manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
+        shutil.rmtree(self.root/'regulations/releases',ignore_errors=True)
         self.original=m.ROOT,m.MANIFEST
         m.ROOT=self.root; m.MANIFEST=self.root/'metadata/regulation_manifest.json'
         m.git('init')

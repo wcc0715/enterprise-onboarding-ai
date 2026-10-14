@@ -5,6 +5,7 @@ import tempfile
 import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import chatbot
+from fixture_project import fixture_answer
 import retrieval
 
 class VocabularyTests(unittest.TestCase):
@@ -17,19 +18,19 @@ class VocabularyTests(unittest.TestCase):
                ('筆電帶回家可以嗎','IT-006'),('進修課程可以補助嗎','TRAIN-003')]
         for q,expected in cases:
             with self.subTest(q=q):
-                r=chatbot.answer(q,'draft')
+                r=fixture_answer(q,'draft')
                 self.assertEqual(r['status'],'EQUIPMENT_CARRY_CLARIFY' if expected=='IT-006' else 'EXTRACTED')
                 self.assertIn(expected,{s['source_id'] for s in r['sources']})
     def test_unknown_alias_and_personal_balance(self):
-        self.assertEqual(chatbot.answer('薪轉戶的截止日是幾號','draft')['status'],'UNRESOLVED')
-        self.assertEqual(chatbot.answer('研習補助額度是多少','draft')['status'],'UNRESOLVED')
-        self.assertEqual(chatbot.answer('我還有幾天年假','draft')['status'],'HRM_UNAVAILABLE')
+        self.assertEqual(fixture_answer('薪轉戶的截止日是幾號','draft')['status'],'UNRESOLVED')
+        self.assertEqual(fixture_answer('研習補助額度是多少','draft')['status'],'UNRESOLVED')
+        self.assertEqual(fixture_answer('我還有幾天年假','draft')['status'],'HRM_UNAVAILABLE')
     def test_unknown_topic_and_vague_question(self):
-        self.assertEqual(chatbot.answer('餐費補助多少','draft')['status'],'SUBJECT_NOT_PROVIDED')
-        self.assertEqual(chatbot.answer('我要申請設備','draft')['status'],'CLARIFY')
-        self.assertEqual(chatbot.answer('','draft')['status'],'CLARIFY')
+        self.assertEqual(fixture_answer('餐費補助多少','draft')['status'],'SUBJECT_NOT_PROVIDED')
+        self.assertEqual(fixture_answer('我要申請設備','draft')['status'],'CLARIFY')
+        self.assertEqual(fixture_answer('','draft')['status'],'CLARIFY')
     def test_case_width_normalization(self):
-        self.assertIn('SEC-003',{s['source_id'] for s in chatbot.answer('私人ＵＳＢ可以使用嗎','draft')['sources']})
+        self.assertIn('SEC-003',{s['source_id'] for s in fixture_answer('私人ＵＳＢ可以使用嗎','draft')['sources']})
     def test_configurable_alias_without_code_changes(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory);(root/'config').mkdir()
@@ -51,11 +52,11 @@ class FullCoverageTests(unittest.TestCase):
         self.assertEqual({c['source_id'] for c in chunks},{c['source_id'] for c in cases})
         for item in cases:
             with self.subTest(question=item['question']):
-                r=chatbot.answer(item['question'],'draft')
+                r=fixture_answer(item['question'],'draft')
                 self.assertIn(item['source_id'],{s['source_id'] for s in r['sources']})
     def test_travel_does_not_assume_leave_type(self):
         for q in ['我要出國，幾天前要請假','下個月去旅遊，休假需要提前多久說？']:
-            r=chatbot.answer(q,'draft')
+            r=fixture_answer(q,'draft')
             self.assertEqual(r['status'],'LEAVE_TYPE_CLARIFY')
             self.assertIn('特休還是一般事假',r['answer'])
             self.assertIn('非強制期限',r['answer'])

@@ -1,7 +1,9 @@
 import json
 from pathlib import Path
 import unittest
-ROOT=Path(__file__).resolve().parents[1]
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
+from fixture_project import ROOT
 
 class RevisionTests(unittest.TestCase):
     def test_revision_is_draft_and_history_gap_is_explicit(self):

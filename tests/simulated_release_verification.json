@@ -1,0 +1,97 @@
+{
+  "effective_date": "2026-10-14",
+  "is_simulated": true,
+  "active_documents": 7,
+  "indexed_chunks": 36,
+  "checks": "本機受控回答驗證；未代表真實雲端模型品質測試",
+  "cases": [
+    {
+      "question": "我家狗生病，我要請假",
+      "status": "PET_LEAVE_CLARIFY",
+      "answer": "了解，你是因為狗狗或其他寵物的狀況需要請假。你可以透過 HRM 提出申請；如果情況緊急、來不及先完成申請，可以先通知主管，再依實際情況補登 HRM。相關流程仍須符合適用法令。\n\n你想使用事假還是特休？目前資料未提供寵物生病的假別認定標準；不確定該選哪種假，可以向 HR 確認。\n依據：LEAVE-002｜版本 0.1.0、LEAVE-005｜版本 0.1.0",
+      "sources": [
+        {
+          "source_id": "LEAVE-002",
+          "regulation_id": "LEAVE",
+          "version": "0.1.0",
+          "source": "regulations/releases/LEAVE/0.1.0.md",
+          "effective_date": "2026-10-14",
+          "git_commit": "b28dccd423ab33250e54d3c794dea4e782cbf347"
+        },
+        {
+          "source_id": "LEAVE-005",
+          "regulation_id": "LEAVE",
+          "version": "0.1.0",
+          "source": "regulations/releases/LEAVE/0.1.0.md",
+          "effective_date": "2026-10-14",
+          "git_commit": "b28dccd423ab33250e54d3c794dea4e782cbf347"
+        }
+      ]
+    },
+    {
+      "question": "我弟弟突然生病，我想請假",
+      "status": "FAMILY_LEAVE_CLARIFY",
+      "answer": "了解，你是因為家人生病需要請假。你可以透過 HRM 提出申請；若情況緊急、來不及先完成申請，可以先通知主管，再依實際情況補登 HRM。相關流程仍須符合適用法令。\n\n目前提供的規章沒有說明照顧家人能否使用病假，我不能直接套用員工本人生病的證明要求；假別不確定時，請向 HR 確認。你打算使用特休、事假，還是想確認其他假別？\n依據：LEAVE-002｜版本 0.1.0、LEAVE-005｜版本 0.1.0",
+      "sources": [
+        {
+          "source_id": "LEAVE-002",
+          "regulation_id": "LEAVE",
+          "version": "0.1.0",
+          "source": "regulations/releases/LEAVE/0.1.0.md",
+          "effective_date": "2026-10-14",
+          "git_commit": "b28dccd423ab33250e54d3c794dea4e782cbf347"
+        },
+        {
+          "source_id": "LEAVE-005",
+          "regulation_id": "LEAVE",
+          "version": "0.1.0",
+          "source": "regulations/releases/LEAVE/0.1.0.md",
+          "effective_date": "2026-10-14",
+          "git_commit": "b28dccd423ab33250e54d3c794dea4e782cbf347"
+        }
+      ]
+    },
+    {
+      "question": "特休一定要提前三天申請嗎",
+      "status": "EXTRACTED",
+      "answer": "如果你想申請特休，建議提前三個工作天通知主管，但這不是強制期限。特休日期原則上由你排定；公司若有急迫經營需求，須依法和你協商調整，不能直接套用一般事假的主管核准規則。特休仍依適用勞動法令辦理。\n依據：LEAVE-004｜版本 0.1.0",
+      "sources": [
+        {
+          "source_id": "LEAVE-004",
+          "regulation_id": "LEAVE",
+          "version": "0.1.0",
+          "source": "regulations/releases/LEAVE/0.1.0.md",
+          "effective_date": "2026-10-14",
+          "git_commit": "b28dccd423ab33250e54d3c794dea4e782cbf347"
+        }
+      ]
+    },
+    {
+      "question": "教育訓練一年補助多少錢",
+      "status": "UNRESOLVED",
+      "answer": "目前提供的公司規章尚未訂定統一補助上限。建議向 HR 確認。",
+      "sources": []
+    },
+    {
+      "question": "我還有幾天特休",
+      "status": "HRM_UNAVAILABLE",
+      "answer": "目前無法直接查詢您的個人特休餘額，請登入公司 HRM 系統查看。",
+      "sources": []
+    },
+    {
+      "question": "敏感設備是什麼",
+      "status": "EXTRACTED",
+      "answer": "設備帶出公司前，先確認攜出授權。已有授權的個人設備，可在授權範圍內攜出，不必每次重申請。敏感設備首次攜出，需要直屬主管同意及 IT 評估核准；經常出差、遠距工作或其他業務需求，可申請一定期間或範圍的持續授權。在持續授權範圍內不用逐次申請，超出範圍要重新申請。敏感設備的使用與保管須依 IT 指定的資安措施；共用設備須借用登記，未經授權不能交給其他人使用。\n依據：IT-006｜版本 1.2.0",
+      "sources": [
+        {
+          "source_id": "IT-006",
+          "regulation_id": "IT",
+          "version": "1.2.0",
+          "source": "regulations/releases/IT/1.2.0.md",
+          "effective_date": "2026-10-14",
+          "git_commit": "cdf06602e124fc77d6db83d214454f88aba99a23"
+        }
+      ]
+    }
+  ]
+}

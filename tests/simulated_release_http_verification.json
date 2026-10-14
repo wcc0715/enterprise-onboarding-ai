@@ -1,0 +1,59 @@
+{
+  "service_status": {
+    "active_count": 7,
+    "draft_count": 7,
+    "model": "gemma4:31b",
+    "provider": "cloud",
+    "key_configured": true,
+    "app_version": "eac7fc25c2de"
+  },
+  "latest_code_loaded": false,
+  "request": {
+    "question": "我今天臨時有事，要請特休",
+    "mode": "active",
+    "history": [],
+    "client_version": "eac7fc25c2de"
+  },
+  "response": {
+    "status": "ANNUAL_LEAVE_URGENT",
+    "answer": "了解，你想請的是特休。提前三個工作天只是建議，不是強制期限，不能把它當成今天無法請特休的理由。建議你儘速通知主管，說明今天無法到班、希望使用特休。若屬緊急請假，可以先通知主管，再依實際情況補登 HRM，相關流程仍須符合適用法令。\n\n特休日期原則上由你排定；公司若有急迫經營需求，須依法協商調整，不能直接套用一般事假的主管核准規則。不確定補登方式時，可以向 HR 確認；目前沒有提供統一補登期限。\n依據：LEAVE-004｜版本 0.1.0、LEAVE-005｜版本 0.1.0",
+    "display_answer": "了解，你想請的是特休。提前三個工作天只是建議，不是強制期限，不能把它當成今天無法請特休的理由。建議你儘速通知主管，說明今天無法到班、希望使用特休。若屬緊急請假，可以先通知主管，再依實際情況補登 HRM，相關流程仍須符合適用法令。\n\n特休日期原則上由你排定；公司若有急迫經營需求，須依法協商調整，不能直接套用一般事假的主管核准規則。不確定補登方式時，可以向 HR 確認；目前沒有提供統一補登期限。\n依據：LEAVE-004｜版本 0.1.0、LEAVE-005｜版本 0.1.0",
+    "sources": [
+      {
+        "source_id": "LEAVE-004",
+        "regulation_id": "LEAVE",
+        "version": "0.1.0",
+        "source": "regulations/releases/LEAVE/0.1.0.md",
+        "effective_date": "2026-10-14",
+        "git_commit": "b28dccd423ab33250e54d3c794dea4e782cbf347"
+      },
+      {
+        "source_id": "LEAVE-005",
+        "regulation_id": "LEAVE",
+        "version": "0.1.0",
+        "source": "regulations/releases/LEAVE/0.1.0.md",
+        "effective_date": "2026-10-14",
+        "git_commit": "b28dccd423ab33250e54d3c794dea4e782cbf347"
+      }
+    ],
+    "conversation_topic": "特休",
+    "requested_leave": "特休",
+    "evidence": [
+      {
+        "source_id": "LEAVE-004",
+        "version": "0.1.0",
+        "text": "依台灣適用勞動法令辦理。特休日期原則上由勞工排定。建議提前三個工作天通知主管，但非強制期限。企業若有急迫經營需求，須依法協商調整。不得將一般事假的主管核准規則直接套用特休。"
+      },
+      {
+        "source_id": "LEAVE-005",
+        "version": "0.1.0",
+        "text": "可先通知主管，再依實際情況補登 HRM。相關流程仍須符合適用法令。"
+      }
+    ],
+    "context_topic": null,
+    "interpretation_status": "未啟用",
+    "mode": "active",
+    "engine": "條文檢索與受控組合",
+    "model_status": "未啟用"
+  }
+}
