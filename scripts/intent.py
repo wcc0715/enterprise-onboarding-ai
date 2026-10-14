@@ -41,3 +41,10 @@ def restricted_action_request(question):
     if any(t in q for t in ['設備','筆電','電腦']) and any(t in q for t in ['批准','核准','認定','宣布']) and any(t in q for t in ['我是主管','我是總經理','全部','所有','都不是','不用it','直接攜出']):
         return 'equipment_classification'
     return None
+
+
+def data_incident(question):
+    q=retrieval.normalize(question)
+    events=['寄錯','誤寄','誤傳','傳錯','發錯','寄到錯的人','傳到錯的人','外洩','洩漏','資料外流']
+    data=['資料','文件','附件','檔案','客戶','個資','機密','公司信件']
+    return any(t in q for t in events) and any(t in q for t in data)

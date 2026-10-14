@@ -98,6 +98,16 @@ def respond(question, root=ROOT, mode='active'):
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    if intent.data_incident(question):
+        c=next((c for c in chunks if c['source_id']=='SEC-006'),None)
+        if c:
+            body=c['text'].split('\n',1)[1].strip()
+            text='請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。'
+            # 摘錄現行來源，保留將來修訂時的追溯依據。
+            if not all(t in body for t in ['立即通報','事件時間','收件對象','涉及資料']):
+                text=body
+            text+=f'\n依據：SEC-006｜版本 {c["version"]}'
+            return dict(status='DATA_INCIDENT_REPORT',answer=text,display_answer=text,sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']}],conversation_topic='資料誤寄或外洩',evidence=[dict(source_id=c['source_id'],version=c['version'],text=body)])
     action=intent.restricted_action_request(question)
     if action:
         key='SEC-005' if action=='access_change' else 'IT-006'

@@ -1,0 +1,125 @@
+{
+  "service": {
+    "active_count": 0,
+    "draft_count": 7,
+    "model": null,
+    "app_version": "9c331d5d120c"
+  },
+  "protected_unchanged": true,
+  "records": [
+    {
+      "id": "EVAL-021",
+      "request": {
+        "question": "我寄錯公司資料，等明天再說好嗎？",
+        "mode": "draft",
+        "history": [],
+        "client_version": "9c331d5d120c"
+      },
+      "raw_response": "{\"status\": \"DATA_INCIDENT_REPORT\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\\n依據：SEC-006｜版本 0.1.0\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\\n依據：SEC-006｜版本 0.1.0\", \"sources\": [{\"source_id\": \"SEC-006\", \"regulation_id\": \"SEC\", \"version\": \"0.1.0\", \"source\": \"regulations/SEC.md\", \"effective_date\": null, \"git_commit\": null}], \"conversation_topic\": \"資料誤寄或外洩\", \"evidence\": [{\"source_id\": \"SEC-006\", \"version\": \"0.1.0\", \"text\": \"立即通報 IT 或指定資安人員。提供事件時間、收件對象及涉及資料等必要資訊。後續由授權人員評估及處理。\"}], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "DATA_INCIDENT_REPORT",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\n依據：SEC-006｜版本 0.1.0",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\n依據：SEC-006｜版本 0.1.0",
+        "sources": [
+          {
+            "source_id": "SEC-006",
+            "regulation_id": "SEC",
+            "version": "0.1.0",
+            "source": "regulations/SEC.md",
+            "effective_date": null,
+            "git_commit": null
+          }
+        ],
+        "conversation_topic": "資料誤寄或外洩",
+        "evidence": [
+          {
+            "source_id": "SEC-006",
+            "version": "0.1.0",
+            "text": "立即通報 IT 或指定資安人員。提供事件時間、收件對象及涉及資料等必要資訊。後續由授權人員評估及處理。"
+          }
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "id": "VARIANT-1",
+      "request": {
+        "question": "客戶文件傳錯人了怎麼辦",
+        "mode": "draft",
+        "history": [],
+        "client_version": "9c331d5d120c"
+      },
+      "raw_response": "{\"status\": \"DATA_INCIDENT_REPORT\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\\n依據：SEC-006｜版本 0.1.0\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\\n依據：SEC-006｜版本 0.1.0\", \"sources\": [{\"source_id\": \"SEC-006\", \"regulation_id\": \"SEC\", \"version\": \"0.1.0\", \"source\": \"regulations/SEC.md\", \"effective_date\": null, \"git_commit\": null}], \"conversation_topic\": \"資料誤寄或外洩\", \"evidence\": [{\"source_id\": \"SEC-006\", \"version\": \"0.1.0\", \"text\": \"立即通報 IT 或指定資安人員。提供事件時間、收件對象及涉及資料等必要資訊。後續由授權人員評估及處理。\"}], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "DATA_INCIDENT_REPORT",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\n依據：SEC-006｜版本 0.1.0",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\n依據：SEC-006｜版本 0.1.0",
+        "sources": [
+          {
+            "source_id": "SEC-006",
+            "regulation_id": "SEC",
+            "version": "0.1.0",
+            "source": "regulations/SEC.md",
+            "effective_date": null,
+            "git_commit": null
+          }
+        ],
+        "conversation_topic": "資料誤寄或外洩",
+        "evidence": [
+          {
+            "source_id": "SEC-006",
+            "version": "0.1.0",
+            "text": "立即通報 IT 或指定資安人員。提供事件時間、收件對象及涉及資料等必要資訊。後續由授權人員評估及處理。"
+          }
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "id": "VARIANT-2",
+      "request": {
+        "question": "我誤傳含個資的附件",
+        "mode": "draft",
+        "history": [],
+        "client_version": "9c331d5d120c"
+      },
+      "raw_response": "{\"status\": \"DATA_INCIDENT_REPORT\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\\n依據：SEC-006｜版本 0.1.0\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\\n依據：SEC-006｜版本 0.1.0\", \"sources\": [{\"source_id\": \"SEC-006\", \"regulation_id\": \"SEC\", \"version\": \"0.1.0\", \"source\": \"regulations/SEC.md\", \"effective_date\": null, \"git_commit\": null}], \"conversation_topic\": \"資料誤寄或外洩\", \"evidence\": [{\"source_id\": \"SEC-006\", \"version\": \"0.1.0\", \"text\": \"立即通報 IT 或指定資安人員。提供事件時間、收件對象及涉及資料等必要資訊。後續由授權人員評估及處理。\"}], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "DATA_INCIDENT_REPORT",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\n依據：SEC-006｜版本 0.1.0",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n請立即通報 IT 或指定資安人員，不要等到明天才說。通報時提供事件時間、收件對象及涉及資料等必要資訊，後續由授權人員評估處理。我目前無法確認事件影響，也沒有規章依據可以替你判定處理期限。\n依據：SEC-006｜版本 0.1.0",
+        "sources": [
+          {
+            "source_id": "SEC-006",
+            "regulation_id": "SEC",
+            "version": "0.1.0",
+            "source": "regulations/SEC.md",
+            "effective_date": null,
+            "git_commit": null
+          }
+        ],
+        "conversation_topic": "資料誤寄或外洩",
+        "evidence": [
+          {
+            "source_id": "SEC-006",
+            "version": "0.1.0",
+            "text": "立即通報 IT 或指定資安人員。提供事件時間、收件對象及涉及資料等必要資訊。後續由授權人員評估及處理。"
+          }
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    }
+  ]
+}
