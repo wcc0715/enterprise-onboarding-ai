@@ -21,7 +21,7 @@ enterprise-onboarding-ai/
 └── docs/                        需求、架構、更新報告格式
 ```
 
-初始七類皆為 **0.1.0 / DRAFT**，ACTIVE 為 null；生效日與發布時間未提供。草案內容來自已確認討論，但討論確認不等同正式發布。36 條條文具有穩定來源編號。11 項未知事項列於 metadata，null 代表尚未確認。
+初始七類皆為 **0.1.0 / DRAFT**，ACTIVE 為 null；生效日與發布時間未提供。草案內容來自已確認討論，但討論確認不等同正式發布。36 條條文具有穩定來源編號。11 項未知事項列於 metadata。使用者已確認這些事項不阻擋發布，員工應向負責單位確認；請假向 HR。尚未提供的其他諮詢單位保留 null，不自行指定。
 
 ## 執行環境
 
@@ -59,7 +59,7 @@ python3 scripts/regulations.py revise LEAVE --version 0.2.0 --updated-date 2026-
 python3 scripts/regulations.py check --base HEAD
 ```
 
-3. 人工審閱內容、例外與未知事項。對該規章每個 UNRESOLVED 項目人工確認 blocks_publication：false 可發布但仍不得填補未知內容；true/null 阻擋。人工單位 null 不可自行填寫。
+3. 人工審閱內容、例外與未知事項。目前使用者已將 11 項未知事項確認為 blocks_publication=false，改由員工向負責單位確認；仍不得填補未知內容。未來新增項目的 true/null 仍阻擋發布。諮詢單位 null 不可自行填寫。
 4. 使用 Git 保存已審閱草案與 metadata：`git add regulations metadata`、`git commit -m '審閱規章草案'`（可用 "$ONBOARDING_GIT" 代替 git）。
 5. **取得使用者明確發布確認及明確生效日後**，才執行以下範本；不可直接照範例推定日期：
 

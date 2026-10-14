@@ -43,6 +43,10 @@ class Lifecycle(unittest.TestCase):
         self.assertEqual(m.read(self.root/'knowledge_base/update_log.json')[-1]['result'],'FAILED')
     def test_confirmation_and_unknown_block(self):
         with self.assertRaises(ValueError):m.publish(Namespace(id='LEAVE',confirm=False,effective_date='2026-10-14',summary='test'))
+        unresolved=m.read(self.root/'metadata/unresolved_items.json')
+        unresolved['items'][0]['blocks_publication']=None
+        m.atomic(self.root/'metadata/unresolved_items.json',unresolved)
+        m.git('add','.');m.git('commit','-m','fixture unknown block')
         with self.assertRaises(ValueError):m.publish(Namespace(id='IT',confirm=True,effective_date='2026-10-14',summary='test'))
     def test_add_modify_delete_report(self):
         (self.root/'regulations/LEAVE.md').unlink()
