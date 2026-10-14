@@ -16,3 +16,18 @@ def specified_leave(question):
 def carrying_out(question):
     q=retrieval.normalize(question)
     return any(t in q for t in ['帶出去','帶出公司','拿出去','帶走','帶回家','攜出','帶到外面'])
+
+
+def personal_record_request(question):
+    """辨識要求實際個人紀錄；不攔截一般制度或更正流程提問。"""
+    q=retrieval.normalize(question)
+    fields=['薪水','薪資','薪酬','工資','出勤紀錄','打卡紀錄','個資','個人資料','身分證','住址','帳戶資料','權限紀錄','獎金金額']
+    subjects=['我的','我這個月','我本月','我薪水','我薪資','本人','同事','部屬','所有員工','員工的','大家的','其他人的','他的','她的']
+    explicit=['查','列出','顯示','讀取','匯出','下載']
+    requests=explicit+['告訴我','給我','提供','看一下','多少','金額']
+    if not (any(t in q for t in fields) and any(t in q for t in subjects) and any(t in q for t in requests)):
+        return None
+    if any(t in q for t in ['變更','更正','少發','算錯','補發','發放','發薪']) and not any(t in q for t in explicit+['多少','金額']):
+        return None
+    others=any(t in q for t in ['同事','部屬','所有員工','員工的','大家的','其他人的','他的','她的'])
+    return 'others' if others else 'self'

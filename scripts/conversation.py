@@ -4,6 +4,8 @@ import intent
 
 def resolve(question,history,root,mode):
     direct=assistant.respond(question,root,mode)
+    if direct['status']=='PERSONAL_DATA_UNAVAILABLE':
+        return question,None
     q=assistant.normalize(question)
     is_followup=q.startswith(('但是','但','那','所以','因為','因爲','就是','其實','這','它','還'))
     if history and intent.carrying_out(question):
