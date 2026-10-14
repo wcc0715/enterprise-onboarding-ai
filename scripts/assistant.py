@@ -108,6 +108,14 @@ def respond(question, root=ROOT, mode='active'):
                 sections.append(heading+'：\n'+body+f'\n來源：{c["source_id"]}｜版本 {c["version"]}｜{c["source"]}')
                 sources.append({k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']})
             return dict(status='LEAVE_FOLLOWUP',answer=intro+'\n\n'+'\n\n'.join(sections),sources=sources)
+    training_terms=['外部課程','外部教育訓練','進修','研習','職能訓練','外部培訓']
+    past_terms=['上禮拜','上星期','上週','上個月','已經參加','已參加','參加過','事後','補申請','昨天參加']
+    if any(t in q for t in training_terms) and any(t in q for t in past_terms):
+        c=next((c for c in chunks if c['source_id']=='TRAIN-003'),None)
+        if c:
+            body=c['text'].split('\n',1)[1].strip()
+            text='目前提供的規章要求事前申請，但未訂定外部課程事後補申請規則，因此無法判定您已參加的課程是否可以補申請或取得補助。您提到公司說可以補助，這不等於本系統已查證核定紀錄；請向主管或 HR 確認是否已有事前申請或核定，以及適用的處理流程。'
+            return dict(status='TRAIN_POST_EVENT',answer=text+'\n\n規章依據：\n'+body+f'\n來源：{c["source_id"]}｜版本 {c["version"]}｜{c["source"]}',sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']}],unresolved_id='UNK-011')
     unknown=store.read(root/'metadata/unresolved_items.json')
     active_ids={c['regulation_id'] for c in chunks}
     for item in unknown['items']:

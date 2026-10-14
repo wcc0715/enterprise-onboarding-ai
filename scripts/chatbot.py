@@ -7,11 +7,14 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import URLError
 import assistant
+import conversation
 
 ROOT=Path(__file__).resolve().parents[1]
 
-def answer(question,mode='active',model=None,root=ROOT):
-    result=assistant.respond(question,root,mode)
+def answer(question,mode='active',model=None,root=ROOT,history=None):
+    effective,context=conversation.resolve(question,history or [],root,mode)
+    result=assistant.respond(effective,root,mode)
+    result['context_topic']=context
     result.update(mode=mode,engine='條文檢索與受控組合',model_status='未啟用')
     if result['status']=='EXTRACTED':
         chunks=assistant.load_current(root) if mode=='active' else assistant.load_draft(root)
@@ -45,6 +48,8 @@ def answer(question,mode='active',model=None,root=ROOT):
             sections.append(f'關於{title}：\n{body}\n來源：{c["source_id"]}｜{c["version"]}｜{c["source"]}')
         result['answer']='\n\n'.join(sections)
         result['sources']=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in selected]
+    if context:
+        result['answer']=f'若您仍在詢問上一題的「{context}」：\n\n'+result['answer']
     if mode=='draft':
         result['answer']='【草案測試：以下不代表已發布或生效制度】\n\n'+result['answer']
     return result
@@ -89,7 +94,9 @@ class Handler(BaseHTTPRequestHandler):
             question=data.get('question');mode=data.get('mode','active')
             if not isinstance(question,str) or not question.strip() or len(question)>1000:raise ValueError('請輸入 1–1000 字的問題')
             if mode not in ('active','draft'):raise ValueError('不支援的模式')
-            self.send_json(200,answer(question,mode,self.model))
+            history=data.get('history',[])
+            if not isinstance(history,list) or len(history)>6 or any(not isinstance(q,str) or len(q)>1000 for q in history):raise ValueError('對話格式不正確')
+            self.send_json(200,answer(question,mode,self.model,history=history))
         except (ValueError,TypeError,KeyError):self.send_json(400,{'error':'問題或模式格式不正確'})
         except OSError:self.send_json(503,{'error':'來源資料暫時不可讀，請確認專案資料'})
 
