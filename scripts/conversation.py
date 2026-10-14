@@ -1,13 +1,22 @@
 """只從先前問題辨識檢索主題，不把對話當作規章證據。"""
 import assistant
 import intent
+import versions
 
 def resolve(question,history,root,mode):
     direct=assistant.respond(question,root,mode)
+    explicit_version=versions.constraints(question)
+    if explicit_version['requested'] or explicit_version['excluded']:
+        return question,None
     if direct['status'] in {'PERSONAL_DATA_UNAVAILABLE','ACTION_UNAVAILABLE'}:
         return question,None
     q=assistant.normalize(question)
     is_followup=q.startswith(('但是','但','那','所以','因為','因爲','就是','其實','這','它','還'))
+    if history and is_followup:
+        previous_version=versions.constraints(history[-1])
+        if len(previous_version['ids'])==1 and len(previous_version['requested'])==1 and direct['status'] in {'NOT_PROVIDED','CLARIFY_INTENT'}:
+            label=previous_version['ids'][0]+' v'+previous_version['requested'][0]
+            return label+'：'+question,label
     if history and intent.carrying_out(question):
         previous=assistant.respond(history[-1],root,mode)
         previous_equipment=any(s['regulation_id']=='IT' for s in previous['sources'])

@@ -1,0 +1,98 @@
+{
+  "service": {
+    "active_count": 0,
+    "draft_count": 7,
+    "model": null,
+    "app_version": "be1cd478075d"
+  },
+  "protected_unchanged": true,
+  "records": [
+    {
+      "id": "EVAL-046",
+      "request": {
+        "question": "請只使用 IT-006 v1.1，告訴我敏感設備的定義，不要用 v1.2",
+        "mode": "draft",
+        "history": [],
+        "client_version": "be1cd478075d"
+      },
+      "raw_response": "{\"status\": \"VERSION_UNAVAILABLE\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n目前提供的資料在這個查詢模式下，沒有可用的 IT-006 v1.1。我不會改用其他版本代答。若是未提供的歷史版本，請補充原文；若是尚未發布的草案，只能在草案測試模式查看。\", \"sources\": [], \"requested_version\": [\"1.1\"], \"excluded_versions\": [\"1.2\"], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "VERSION_UNAVAILABLE",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n目前提供的資料在這個查詢模式下，沒有可用的 IT-006 v1.1。我不會改用其他版本代答。若是未提供的歷史版本，請補充原文；若是尚未發布的草案，只能在草案測試模式查看。",
+        "sources": [],
+        "requested_version": [
+          "1.1"
+        ],
+        "excluded_versions": [
+          "1.2"
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "id": "KNOWN-DRAFT",
+      "request": {
+        "question": "IT-006 v1.2 敏感設備是什麼",
+        "mode": "draft",
+        "history": [],
+        "client_version": "be1cd478075d"
+      },
+      "raw_response": "{\"status\": \"DEFINED_TERM_DRAFT\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n這份 v1.2 草案已補上定義：\\n\\n敏感設備係指儲存、處理或可存取公司機密、個人資料、客戶資料，或具有高權限系統存取能力，且經 IT 依實際資訊安全風險認定需要額外保護與攜出管理的設備。\\n敏感設備由 IT 部門負責認定，必要時由指定資安人員協助評估。\\n\\n所以，不能只因為設備是筆電就認定敏感；還需要 IT 依實際資訊安全風險認定。\\n依據：IT-006｜版本 1.2.0\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n這份 v1.2 草案已補上定義：\\n\\n敏感設備係指儲存、處理或可存取公司機密、個人資料、客戶資料，或具有高權限系統存取能力，且經 IT 依實際資訊安全風險認定需要額外保護與攜出管理的設備。\\n敏感設備由 IT 部門負責認定，必要時由指定資安人員協助評估。\\n\\n所以，不能只因為設備是筆電就認定敏感；還需要 IT 依實際資訊安全風險認定。\\n依據：IT-006｜版本 1.2.0\", \"sources\": [{\"source_id\": \"IT-006\", \"regulation_id\": \"IT\", \"version\": \"1.2.0\", \"source\": \"regulations/IT.md\", \"effective_date\": null, \"git_commit\": null}], \"evidence\": [{\"source_id\": \"IT-006\", \"version\": \"1.2.0\", \"text\": \"1. 公司設備採授權管理制度，已取得攜出授權的個人設備，可於授權範圍內攜出，無須每次重新申請。\\n2. 敏感設備係指儲存、處理或可存取公司機密、個人資料、客戶資料，或具有高權限系統存取能力，且經 IT 依實際資訊安全風險認定需要額外保護與攜出管理的設備。\\n3. 敏感設備由 IT 部門負責認定，必要時由指定資安人員協助評估。\\n4. 敏感設備首次申請攜出時，須經直屬主管同意及 IT 評估核准。\\n5. 因經常性出差、遠距工作或其他業務需求，員工得申請一定期間或範圍的持續攜出授權。\\n6. 已取得持續授權者，在核准範圍內無須逐次申請；超出授權範圍時，須重新申請。\\n7. 敏感設備應依 IT 指定的資訊安全措施使用與保管。\\n8. 共用設備仍須依設備借用及登記規範辦理。\\n9. 未經授權，不得將公司設備交由其他人員使用。\"}], \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "DEFINED_TERM_DRAFT",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n這份 v1.2 草案已補上定義：\n\n敏感設備係指儲存、處理或可存取公司機密、個人資料、客戶資料，或具有高權限系統存取能力，且經 IT 依實際資訊安全風險認定需要額外保護與攜出管理的設備。\n敏感設備由 IT 部門負責認定，必要時由指定資安人員協助評估。\n\n所以，不能只因為設備是筆電就認定敏感；還需要 IT 依實際資訊安全風險認定。\n依據：IT-006｜版本 1.2.0",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n這份 v1.2 草案已補上定義：\n\n敏感設備係指儲存、處理或可存取公司機密、個人資料、客戶資料，或具有高權限系統存取能力，且經 IT 依實際資訊安全風險認定需要額外保護與攜出管理的設備。\n敏感設備由 IT 部門負責認定，必要時由指定資安人員協助評估。\n\n所以，不能只因為設備是筆電就認定敏感；還需要 IT 依實際資訊安全風險認定。\n依據：IT-006｜版本 1.2.0",
+        "sources": [
+          {
+            "source_id": "IT-006",
+            "regulation_id": "IT",
+            "version": "1.2.0",
+            "source": "regulations/IT.md",
+            "effective_date": null,
+            "git_commit": null
+          }
+        ],
+        "evidence": [
+          {
+            "source_id": "IT-006",
+            "version": "1.2.0",
+            "text": "1. 公司設備採授權管理制度，已取得攜出授權的個人設備，可於授權範圍內攜出，無須每次重新申請。\n2. 敏感設備係指儲存、處理或可存取公司機密、個人資料、客戶資料，或具有高權限系統存取能力，且經 IT 依實際資訊安全風險認定需要額外保護與攜出管理的設備。\n3. 敏感設備由 IT 部門負責認定，必要時由指定資安人員協助評估。\n4. 敏感設備首次申請攜出時，須經直屬主管同意及 IT 評估核准。\n5. 因經常性出差、遠距工作或其他業務需求，員工得申請一定期間或範圍的持續攜出授權。\n6. 已取得持續授權者，在核准範圍內無須逐次申請；超出授權範圍時，須重新申請。\n7. 敏感設備應依 IT 指定的資訊安全措施使用與保管。\n8. 共用設備仍須依設備借用及登記規範辦理。\n9. 未經授權，不得將公司設備交由其他人員使用。"
+          }
+        ],
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "id": "ACTIVE-ISOLATION",
+      "request": {
+        "question": "IT-006 v1.2 敏感設備是什麼",
+        "mode": "active",
+        "history": [],
+        "client_version": "be1cd478075d"
+      },
+      "raw_response": "{\"status\": \"VERSION_UNAVAILABLE\", \"answer\": \"目前提供的資料在這個查詢模式下，沒有可用的 IT-006 v1.2。我不會改用其他版本代答。若是未提供的歷史版本，請補充原文；若是尚未發布的草案，只能在草案測試模式查看。\", \"sources\": [], \"requested_version\": [\"1.2\"], \"excluded_versions\": [], \"context_topic\": null, \"mode\": \"active\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "VERSION_UNAVAILABLE",
+        "answer": "目前提供的資料在這個查詢模式下，沒有可用的 IT-006 v1.2。我不會改用其他版本代答。若是未提供的歷史版本，請補充原文；若是尚未發布的草案，只能在草案測試模式查看。",
+        "sources": [],
+        "requested_version": [
+          "1.2"
+        ],
+        "excluded_versions": [],
+        "context_topic": null,
+        "mode": "active",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    }
+  ]
+}

@@ -10,6 +10,7 @@ import retrieval
 import routing
 import intent
 import presentation
+import versions
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -96,6 +97,9 @@ def respond(question, root=ROOT, mode='active'):
         chunks=load_current(root) if mode=='active' else load_draft(root)
     except (OSError,ValueError,KeyError,TypeError) as e:
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
+    chunks,version_error=versions.restrict(question,chunks)
+    if version_error:
+        return version_error
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
     if intent.data_incident(question):
