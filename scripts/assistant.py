@@ -6,43 +6,9 @@ import json
 from pathlib import Path
 import re
 import regulations as store
+import retrieval
 
 ROOT = Path(__file__).resolve().parents[1]
-
-# 以下僅為問題語意對照，並非新增企業制度。
-TOPICS = {
- 'LEAVE-001': ['事假'], 'LEAVE-002': ['請假流程', '申請假單'],
- 'LEAVE-003': ['病假', '診斷', '藥單', '發燒', '不舒服', '生病', '看醫生', '就醫'], 'LEAVE-004': ['特休'],
- 'LEAVE-005': ['緊急請假'], 'ATT-001': ['上班時間', '工作時間', '午休'],
- 'ATT-002': ['忘記打卡', '漏打卡', '補登', '沒打卡', '忘了打卡'], 'ATT-003': ['遲到'],
- 'ATT-004': ['加班', '補休'], 'IT-001': ['電腦故障', '螢幕故障', '電腦壞', '電腦不能開', '螢幕壞'],
- 'IT-002': ['備用設備', '備用電腦'], 'IT-003': ['安裝軟體', '外部維修'],
- 'IT-004': ['申請設備', '設備申請', '額外設備'], 'IT-005': ['設備損壞', '賠償'],
- 'IT-006': ['筆電攜出', '設備攜出', '借給'], 'SEC-001': ['密碼', '帳密'],
- 'SEC-002': ['釣魚', '可疑郵件'], 'SEC-003': ['usb'],
- 'SEC-004': ['生成式ai', '外部ai'], 'SEC-005': ['系統權限', '共用帳號'],
- 'SEC-006': ['誤寄', '外洩'], 'HR-001': ['薪資發放', '發薪', '薪水何時'],
- 'HR-002': ['薪資異常', '薪資差額'], 'HR-003': ['薪資帳戶'],
- 'HR-004': ['福利', '生日禮'], 'HR-005': ['hrm'], 'HR-006': ['年終', '獎金', '試用期'],
- 'ADMIN-001': ['工作證'], 'ADMIN-002': ['文具', '辦公用品'],
- 'ADMIN-003': ['冷氣', '照明', '桌椅'], 'ADMIN-004': ['訪客'],
- 'ADMIN-005': ['會議室'], 'TRAIN-001': ['新進訓練', '共同課程'],
- 'TRAIN-002': ['補課', '缺席'], 'TRAIN-003': ['外部課程', '外部教育訓練', '教育訓練補助', '訓練補助', '職能訓練', '外訓'],
- 'TRAIN-004': ['訓練紀錄', '完訓紀錄', '心得'],
-}
-UNKNOWN_RULES = {
- 'UNK-001': (['設備'], ['多久', '期限', '幾天']),
- 'UNK-002': (['設備損壞'], ['誰', '單位', '判定']),
- 'UNK-003': (['薪資帳戶'], ['截止', '期限', '幾號']),
- 'UNK-004': (['福利', '生日禮'], ['多少', '金額', '額度']),
- 'UNK-005': (['獎金', '年終'], ['離職', '特殊']),
- 'UNK-006': (['工作證'], ['費用', '多少', '多久', '幾天']),
- 'UNK-007': (['辦公用品', '文具'], ['多久', '期限', '幾天']),
- 'UNK-008': (['會議室'], ['限制', '上限', '最多']),
- 'UNK-009': (['教育訓練', '訓練補助', '外部課程', '職能訓練', '進修', '研習', '培訓', '訓練活動'], ['多少', '上限', '額度']),
- 'UNK-010': (['補課'], ['期限', '多久', '幾天']),
- 'UNK-011': (['外部課程', '外部訓練', '外部教育訓練'], ['事後', '補申請']),
-}
 
 def normalize(text):
     return re.sub(r'\s+', '', text.lower())
@@ -103,8 +69,13 @@ def load_draft(root):
 def respond(question, root=ROOT, mode='active'):
     if mode not in {'active','draft'}:
         raise ValueError('不支援的模式。')
-    q=normalize(question)
-    if not q:
+    try:
+        vocabulary=retrieval.load(root)
+        query=retrieval.expand(question,vocabulary)
+    except (OSError,ValueError,KeyError,TypeError) as e:
+        return dict(status='RETRIEVAL_UNAVAILABLE',answer='檢索詞彙設定無法使用，請管理者檢查；不推測制度答案。',sources=[])
+    q=query['expanded']
+    if not query['original']:
         return dict(status='CLARIFY',answer='請輸入您想詢問的制度問題。',sources=[])
     if '特休' in q and any(t in q for t in ['我還有', '剩幾', '剩多少', '餘額', '剩餘']):
         return dict(status='HRM_UNAVAILABLE',answer='目前無法直接查詢您的個人特休餘額，請登入公司 HRM 系統查看。',sources=[])
@@ -129,7 +100,7 @@ def respond(question, root=ROOT, mode='active'):
     unknown=store.read(root/'metadata/unresolved_items.json')
     active_ids={c['regulation_id'] for c in chunks}
     for item in unknown['items']:
-        groups=UNKNOWN_RULES.get(item['id'])
+        groups=vocabulary['unknown_rules'].get(item['id'])
         if item['regulation'] in active_ids and item['status']=='UNRESOLVED' and groups and all(any(t in q for t in g) for g in groups):
             unit=item['consultation_unit']
             suffix=f'請進一步向 {unit} 確認。' if unit else '目前提供的資料也未確認負責單位，請先確認負責單位後詢問。'
@@ -137,17 +108,9 @@ def respond(question, root=ROOT, mode='active'):
             if item['id']=='UNK-009':
                 answer='目前提供的公司規章尚未訂定統一補助上限。建議向 HR 確認。'
             return dict(status='UNRESOLVED',answer=answer,sources=[],unresolved_id=item['id'])
-    if q in ['請假', '我要請假', '我要申請設備', '申請設備']:
+    if query['original'] in ['請假', '我要請假', '我要申請設備', '申請設備']:
         return dict(status='CLARIFY',answer='請補充假別或設備類型，以便查找對應規章。請假細節可向 HR 確認。',sources=[])
-    hits=[]
-    for c in chunks:
-        title=normalize(c['text'].splitlines()[0])
-        terms=TOPICS.get(c['source_id'],[])
-        score=sum(len(t) for t in terms if t in q)
-        if c['source_id']=='TRAIN-003' and any(t in q for t in ['課程','進修','研習','培訓','訓練活動','職能訓練']) and any(t in q for t in ['補助','報名','外部','申請']):
-            score+=10
-        if score or c['source_id'].lower() in q or title.replace('##','').strip() in q:
-            hits.append((score,c))
+    hits=retrieval.rank(chunks,query,vocabulary)
     if not hits:
         return dict(status='NOT_PROVIDED',answer=f'目前提供的{"現行規章" if mode=="active" else "草案資料"}中，找不到此問題的明確依據。請補充問題細節；若負責單位已確認，請向該單位詢問。',sources=[])
     hits.sort(key=lambda pair:(-pair[0],pair[1]['source_id']))
@@ -159,7 +122,7 @@ def respond(question, root=ROOT, mode='active'):
         body=c['text'].split('\n',1)[1].strip()
         sections.append(body+f'\n來源：{c["source_id"]}｜版本 {c["version"]}｜{c["source"]}')
         sources.append({k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']})
-    return dict(status='EXTRACTED',answer='以下為檢索到的相關規章原文，請確認是否對應您的情境：\n\n'+'\n\n'.join(sections),sources=sources)
+    return dict(retrieval=query,status='EXTRACTED',answer='以下為檢索到的相關規章原文，請確認是否對應您的情境：\n\n'+'\n\n'.join(sections),sources=sources)
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)

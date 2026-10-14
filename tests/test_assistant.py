@@ -15,7 +15,7 @@ class AssistantTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory(dir=ROOT/'tests')
         self.root=Path(self.tmp.name).resolve()
-        for name in ['regulations','metadata','knowledge_base']:
+        for name in ['regulations','metadata','knowledge_base','config']:
             shutil.copytree(ROOT/name,self.root/name)
         self.original=store.ROOT,store.MANIFEST
         store.ROOT=self.root;store.MANIFEST=self.root/'metadata/regulation_manifest.json'
