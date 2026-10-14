@@ -11,6 +11,7 @@ import routing
 import intent
 import presentation
 import versions
+import query_subjects
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -102,6 +103,10 @@ def respond(question, root=ROOT, mode='active'):
         return version_error
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    missing_subject=query_subjects.unsupported_subsidy(question,chunks,root)
+    if missing_subject:
+        text=f'目前提供的規章沒有「{missing_subject}」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。'
+        return dict(status='SUBJECT_NOT_PROVIDED',answer=text,display_answer=text,sources=[],conversation_topic=missing_subject,missing_subject=missing_subject)
     if intent.equipment_liability(question):
         c=next((c for c in chunks if c['source_id']=='IT-005'),None)
         if c:

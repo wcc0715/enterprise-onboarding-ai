@@ -1,0 +1,80 @@
+{
+  "service": {
+    "active_count": 0,
+    "draft_count": 7,
+    "model": null,
+    "app_version": "97f1867df906"
+  },
+  "protected_unchanged": true,
+  "records": [
+    {
+      "id": "EVAL-038",
+      "request": {
+        "question": "公司停車費補助上限多少？",
+        "mode": "draft",
+        "history": [],
+        "client_version": "97f1867df906"
+      },
+      "raw_response": "{\"status\": \"SUBJECT_NOT_PROVIDED\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n目前提供的規章沒有「停車費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n目前提供的規章沒有「停車費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。\", \"sources\": [], \"conversation_topic\": \"停車費補助\", \"missing_subject\": \"停車費補助\", \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "SUBJECT_NOT_PROVIDED",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n目前提供的規章沒有「停車費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n目前提供的規章沒有「停車費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。",
+        "sources": [],
+        "conversation_topic": "停車費補助",
+        "missing_subject": "停車費補助",
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "id": "PARKING-VARIANT",
+      "request": {
+        "question": "停車有津貼嗎",
+        "mode": "draft",
+        "history": [],
+        "client_version": "97f1867df906"
+      },
+      "raw_response": "{\"status\": \"SUBJECT_NOT_PROVIDED\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n目前提供的規章沒有「停車費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n目前提供的規章沒有「停車費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。\", \"sources\": [], \"conversation_topic\": \"停車費補助\", \"missing_subject\": \"停車費補助\", \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "SUBJECT_NOT_PROVIDED",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n目前提供的規章沒有「停車費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n目前提供的規章沒有「停車費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。",
+        "sources": [],
+        "conversation_topic": "停車費補助",
+        "missing_subject": "停車費補助",
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "id": "MEAL-VARIANT",
+      "request": {
+        "question": "午餐能不能給補助？",
+        "mode": "draft",
+        "history": [],
+        "client_version": "97f1867df906"
+      },
+      "raw_response": "{\"status\": \"SUBJECT_NOT_PROVIDED\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n目前提供的規章沒有「餐費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n目前提供的規章沒有「餐費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。\", \"sources\": [], \"conversation_topic\": \"餐費補助\", \"missing_subject\": \"餐費補助\", \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "SUBJECT_NOT_PROVIDED",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n目前提供的規章沒有「餐費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n目前提供的規章沒有「餐費補助」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。",
+        "sources": [],
+        "conversation_topic": "餐費補助",
+        "missing_subject": "餐費補助",
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    }
+  ]
+}

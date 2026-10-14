@@ -25,7 +25,7 @@ class VocabularyTests(unittest.TestCase):
         self.assertEqual(chatbot.answer('研習補助額度是多少','draft')['status'],'UNRESOLVED')
         self.assertEqual(chatbot.answer('我還有幾天年假','draft')['status'],'HRM_UNAVAILABLE')
     def test_unknown_topic_and_vague_question(self):
-        self.assertEqual(chatbot.answer('餐費補助多少','draft')['status'],'CLARIFY_INTENT')
+        self.assertEqual(chatbot.answer('餐費補助多少','draft')['status'],'SUBJECT_NOT_PROVIDED')
         self.assertEqual(chatbot.answer('我要申請設備','draft')['status'],'CLARIFY')
         self.assertEqual(chatbot.answer('','draft')['status'],'CLARIFY')
     def test_case_width_normalization(self):

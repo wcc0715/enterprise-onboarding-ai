@@ -42,7 +42,7 @@ class AssistantTests(unittest.TestCase):
             ('教育訓練一年補助多少錢？','UNRESOLVED','尚未訂定統一補助上限'),
             ('病假證明要哪些？','EXTRACTED','特殊情況'),
             ('我還有幾天特休？','HRM_UNAVAILABLE','HRM'),
-            ('公司提供停車補助嗎？','CLARIFY_INTENT','資訊不足'),
+            ('公司提供停車補助嗎？','SUBJECT_NOT_PROVIDED','無法確認'),
             ('會議室設備故障與冷氣壞了怎麼處理？','EXTRACTED','行政部門'),
         ]
         for q,status,text in cases:

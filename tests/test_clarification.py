@@ -32,7 +32,7 @@ class ClarificationTests(unittest.TestCase):
         self.assertIsNone(r['context_topic'])
     def test_lunch_subsidy_is_not_invented(self):
         r=chatbot.answer('午餐能不能給補助？','draft')
-        self.assertEqual(r['status'],'CLARIFY_INTENT')
+        self.assertEqual(r['status'],'SUBJECT_NOT_PROVIDED')
         self.assertEqual(r['sources'],[])
         self.assertNotIn('可以補助',r['answer'])
 
