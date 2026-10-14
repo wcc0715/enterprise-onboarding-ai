@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 import regulations as store
 import retrieval
+import routing
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -85,6 +86,10 @@ def respond(question, root=ROOT, mode='active'):
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    if any(t in q for t in ['系統','登入','軟體','程式']) and any(t in q for t in ['打不開','登不進','進不去','開不了','無法登入','不能登入','沒有權限']):
+        guidance=routing.recommend(question,chunks,root)
+        if guidance:
+            return guidance
     if 'leave-notice' in query['intent_ids'] and not any(t in q for t in ['事假','特休','病假','緊急請假']):
         related=[c for c in chunks if c['source_id'] in {'LEAVE-001','LEAVE-004'}]
         if related:
@@ -137,6 +142,9 @@ def respond(question, root=ROOT, mode='active'):
         return dict(status='CLARIFY',answer='我理解您可能想詢問請假申請或設備申請流程，是否正確？請補充假別或設備類型，以便查找對應規章。請假細節可向 HR 確認。',sources=[])
     hits=retrieval.rank(chunks,query,vocabulary)
     if not hits:
+        guidance=routing.recommend(question,chunks,root) if any(t in q for t in ['找誰','問誰','誰處理','誰協助','有問題','怎麼辦','無法','不能','打不開','壞','異常']) else None
+        if guidance:
+            return guidance
         candidates=[c for c in chunks if c['source_id'] in query['candidate_ids']]
         if candidates:
             topics=list(dict.fromkeys(c['text'].splitlines()[0].split(' ',2)[-1] for c in candidates))
