@@ -15,7 +15,17 @@
         "git_commit": null,
         "published_at": null
       },
-      "active": null,
+      "active": {
+        "version": "0.1.0",
+        "status": "ACTIVE",
+        "source": "regulations/releases/LEAVE/0.1.0.md",
+        "updated_date": "2026-10-14",
+        "sha256": "d85342972968ba9ed04bd682de9b7cb6d06c6922ee0744a054370a7413fbd8e4",
+        "effective_date": "2026-10-14",
+        "summary": "使用者確認發布本機模擬正式規章；非真實企業制度或法律合規認證",
+        "git_commit": "b28dccd423ab33250e54d3c794dea4e782cbf347",
+        "published_at": "2026-10-14T09:42:20.226606+00:00"
+      },
       "history": []
     },
     {
