@@ -8,6 +8,7 @@ import re
 import regulations as store
 import retrieval
 import routing
+import intent
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -86,6 +87,22 @@ def respond(question, root=ROOT, mode='active'):
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    selected_leave=intent.specified_leave(question)
+    if selected_leave=='特休' and any(t in q for t in ['突然','臨時','今天','來不及','沒辦法提前','無法提前']):
+        related=[c for c in chunks if c['source_id'] in {'LEAVE-004','LEAVE-005'}]
+        annual=next((c for c in related if c['source_id']=='LEAVE-004'),None)
+        emergency=next((c for c in related if c['source_id']=='LEAVE-005'),None)
+        if annual and emergency and '建議提前三個工作天通知主管，但非強制期限' in annual['text'] and '先通知主管' in emergency['text']:
+            text='了解，你想請的是特休。提前三個工作天只是建議，不是強制期限，不能把它當成今天無法請特休的理由。建議你儘速通知主管，說明今天無法到班、希望使用特休。若屬緊急請假，可以先通知主管，再依實際情況補登 HRM，相關流程仍須符合適用法令。'
+            text+='\n\n特休日期原則上由你排定；公司若有急迫經營需求，須依法協商調整，不能直接套用一般事假的主管核准規則。'
+            if intent.family_illness(question):
+                text+='你提到的是家人生病，我不會直接把員工本人的病假證明要求套用在這次特休。'
+            text+='不確定補登方式時，可以向 HR 確認；目前沒有提供統一補登期限。'
+            sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in related]
+            text+='\n依據：'+ '、'.join(c['source_id']+'｜版本 '+c['version'] for c in related)
+            return dict(status='ANNUAL_LEAVE_URGENT',answer=text,display_answer=text,sources=sources,conversation_topic='特休',requested_leave='特休',evidence=[dict(source_id=c['source_id'],version=c['version'],text=c['text'].split('\n',1)[1].strip()) for c in related])
+    if intent.family_illness(question) and selected_leave!='特休':
+        return dict(status='FAMILY_LEAVE_CLARIFY',answer='我理解你是因為家人生病、需要請假照顧家人，對嗎？你打算使用特休、事假，還是想確認其他假別？目前提供的規章沒有說明照顧家人能否使用病假，我不能直接套用員工本人生病的證明要求；假別不確定時，請向 HR 確認。',sources=[],conversation_topic='請假')
     if any(t in q for t in ['系統','登入','軟體','程式']) and any(t in q for t in ['打不開','登不進','進不去','開不了','無法登入','不能登入','沒有權限']):
         guidance=routing.recommend(question,chunks,root)
         if guidance:
@@ -141,6 +158,8 @@ def respond(question, root=ROOT, mode='active'):
     if query['original'] in ['請假', '我要請假', '我要申請設備', '申請設備']:
         return dict(status='CLARIFY',answer='我理解您可能想詢問請假申請或設備申請流程，是否正確？請補充假別或設備類型，以便查找對應規章。請假細節可向 HR 確認。',sources=[])
     hits=retrieval.rank(chunks,query,vocabulary)
+    if intent.family_illness(question):
+        hits=[pair for pair in hits if pair[1]['source_id']!='LEAVE-003']
     if not hits:
         guidance=routing.recommend(question,chunks,root) if any(t in q for t in ['找誰','問誰','誰處理','誰協助','有問題','怎麼辦','無法','不能','打不開','壞','異常']) else None
         if guidance:

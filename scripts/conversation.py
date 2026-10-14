@@ -1,8 +1,19 @@
 """只從先前問題辨識檢索主題，不把對話當作規章證據。"""
 import assistant
+import intent
 
 def resolve(question,history,root,mode):
     direct=assistant.respond(question,root,mode)
+    q=assistant.normalize(question)
+    is_followup=q.startswith(('但是','那','所以','因為','因爲','就是','其實','這','它','還'))
+    if history and is_followup and not intent.specified_leave(question):
+        previous=history[-1]
+        leave=intent.specified_leave(previous)
+        # 顯式指定特休且本輪仍補充請假理由／通知時間時，優先保留假別。
+        if leave=='特休' and (intent.family_illness(question) or any(t in q for t in ['提前','來不及','通知','請假'])):
+            prior=assistant.respond(previous,root,mode)
+            if any(s['source_id']=='LEAVE-004' for s in prior['sources']):
+                return '特休：'+question,'特休'
     if direct['status']!='NOT_PROVIDED' or not history:
         return question,None
     q=assistant.normalize(question)
