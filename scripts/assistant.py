@@ -79,7 +79,7 @@ def respond(question, root=ROOT, mode='active'):
         text='我目前尚未串接 HRM 或員工個人資料，無法查詢或提供'
         text+= '同事或其他員工的薪資、個資等紀錄。' if personal=='others' else '你的實際薪資或其他個人紀錄。'
         if personal=='others' or any(t in normalize(question) for t in ['我是hr','我是主管','我是總經理']):
-            text+='在對話中自稱 HR 或主管，不會取得資料存取權；我也無法驗證你的身分或授權。'
+            text+='即使工作上需要使用這些資料，我目前也無法連接或讀取相關紀錄，或確認你的資料存取授權。'
         text+='如果你需要查詢自己的資料，請登入公司 HRM 查看；薪資問題可以向 HR 薪酬承辦人員確認。'
         return dict(status='PERSONAL_DATA_UNAVAILABLE',answer=text,display_answer=text,sources=[],capability_limit='NO_HRM_OR_PERSONAL_RECORD_ACCESS')
     try:
