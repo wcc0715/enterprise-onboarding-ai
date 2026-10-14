@@ -69,7 +69,17 @@
         "git_commit": null,
         "published_at": null
       },
-      "active": null,
+      "active": {
+        "version": "1.2.0",
+        "status": "ACTIVE",
+        "source": "regulations/releases/IT/1.2.0.md",
+        "updated_date": "2026-10-14",
+        "sha256": "71b1a05cf503689608496c3e90b5a8b4eb07db3dc65aaa2ae873b710f6f235a9",
+        "effective_date": "2026-10-14",
+        "summary": "使用者確認發布本機模擬正式規章；非真實企業制度或法律合規認證",
+        "git_commit": "cdf06602e124fc77d6db83d214454f88aba99a23",
+        "published_at": "2026-10-14T09:42:20.490198+00:00"
+      },
       "history": [],
       "clause_revision_tracking": {
         "id": "IT-006",
