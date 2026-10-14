@@ -88,6 +88,19 @@ def respond(question, root=ROOT, mode='active'):
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    if '敏感設備' in q and any(t in q for t in ['是什麼','什麼是','哪些','怎麼判斷','算不算','是指','定義','哪種','什麼樣']):
+        c=next((c for c in chunks if c['source_id']=='IT-006'),None)
+        known_style=store.read(root/'config/answer_style.json')['entries'].get('IT-006')
+        item=next((i for i in store.read(root/'metadata/unresolved_items.json')['items'] if i['id']=='UNK-012'),None)
+        if c and item and item['status']=='UNRESOLVED' and known_style and store.sha(c['text'])==known_style['clause_sha256']:
+            text='你問的是「敏感設備」的意思。這份規章只說敏感設備要另依授權要求管理，沒有提供定義、清單或判斷標準，所以我不能直接判定哪些設備算敏感設備。'
+            related=[c]
+            equipment=next((c for c in chunks if c['source_id']=='IT-004'),None)
+            if equipment:
+                text+='\n\n依 IT 負責設備配置評估的職掌，建議先向 IT 確認你要帶的設備是否需要額外授權；這是初步詢問方向，資料沒有指定敏感設備的正式認定單位。'
+                related.append(equipment)
+            text+='\n依據：'+ '、'.join(c['source_id']+'｜版本 '+c['version'] for c in related)
+            return dict(status='UNDEFINED_TERM',answer=text,display_answer=text,sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in related],unresolved_id='UNK-012',conversation_topic='敏感設備',evidence=[dict(source_id=c['source_id'],version=c['version'],text=c['text'].split('\n',1)[1].strip()) for c in related])
     if intent.carrying_out(question) and any(t in q for t in ['設備','筆電','電腦','螢幕']):
         c=next((c for c in chunks if c['source_id']=='IT-006'),None)
         if c:
