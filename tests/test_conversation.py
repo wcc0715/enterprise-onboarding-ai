@@ -15,6 +15,28 @@ class ConversationTests(unittest.TestCase):
         self.assertIn('未訂定外部課程事後補申請',r['answer'])
         self.assertIn('不等於本系統已查證',r['answer'])
         self.assertEqual(r['sources'][0]['source_id'],'TRAIN-003')
+    def test_temporary_urgent_reason_followup(self):
+        first='我臨時有事，但來不及請假'
+        r=chatbot.answer(first,'draft')
+        self.assertEqual(r['status'],'LEAVE_URGENT_CLARIFY')
+        self.assertIn('這個理解是否正確',r['answer'])
+        r=chatbot.answer('因為臨時有事，所以來不及','draft',history=[first])
+        self.assertEqual(r['status'],'LEAVE_URGENT_CLARIFY')
+        self.assertEqual(r['context_topic'],'請假')
+        self.assertIn('先通知主管',r['answer'])
+        self.assertIn('若屬緊急請假',r['answer'])
+        self.assertNotIn('三個工作天',r['answer'])
+    def test_multiple_leave_sources_keep_common_context(self):
+        first='我忘記請假了怎麼辦'
+        self.assertGreater(len(chatbot.answer(first,'draft')['sources']),1)
+        r=chatbot.answer('因為突然有事，才來不及','draft',history=[first])
+        self.assertEqual(r['status'],'LEAVE_URGENT_CLARIFY')
+        self.assertEqual(r['context_topic'],'請假')
+    def test_reason_without_context_is_not_assumed_leave(self):
+        r=chatbot.answer('因為臨時有事，所以來不及','draft')
+        self.assertEqual(r['status'],'NOT_PROVIDED')
+        self.assertEqual(r['sources'],[])
+
     def test_followup_amount_still_unknown(self):
         r=chatbot.answer('那多少錢','draft',history=['我想報名進修課程，公司能補助嗎'])
         self.assertEqual(r['status'],'UNRESOLVED')

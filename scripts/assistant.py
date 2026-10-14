@@ -96,6 +96,12 @@ def respond(question, root=ROOT, mode='active'):
                 sections.append(title+'：\n'+body+f'\n來源：{c["source_id"]}｜版本 {c["version"]}｜{c["source"]}')
                 sources.append({k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']})
             return dict(status='LEAVE_TYPE_CLARIFY',answer=intro+'\n\n'+'\n\n'.join(sections),sources=sources,retrieval=query)
+    if any(t in q for t in ['請假','假單']) and any(t in q for t in ['臨時有事','臨時急事','突然有事','突然有急事','突發事情']):
+        c=next((c for c in chunks if c['source_id']=='LEAVE-005'),None)
+        if c:
+            intro='我理解您是臨時發生事情，來不及事前完成請假申請，這個理解是否正確？若屬緊急請假，可以先通知主管，再依實際情況補登 HRM。'
+            body=c['text'].split('\n',1)[1].strip()
+            return dict(status='LEAVE_URGENT_CLARIFY',answer=intro+'\n\n緊急請假條文：\n'+body+'\n目前提供的規章未列出緊急情況認定標準或統一補登期限；若不確定情況或假別，請向 HR 確認。'+f'\n來源：{c["source_id"]}｜版本 {c["version"]}｜{c["source"]}',sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']}],conversation_topic='請假')
     if '緊急請假' not in q and any(t in q for t in ['請假', '假單']) and any(t in q for t in ['忘記', '忘了', '漏申請', '沒申請', '未申請', '來不及']):
         related=[c for c in chunks if c['source_id'] in {'LEAVE-002','LEAVE-005'}]
         if related:
@@ -107,7 +113,7 @@ def respond(question, root=ROOT, mode='active'):
                 body=c['text'].split('\n',1)[1].strip()
                 sections.append(heading+'：\n'+body+f'\n來源：{c["source_id"]}｜版本 {c["version"]}｜{c["source"]}')
                 sources.append({k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']})
-            return dict(status='LEAVE_FOLLOWUP',answer=intro+'\n\n'+'\n\n'.join(sections),sources=sources)
+            return dict(conversation_topic='請假',status='LEAVE_FOLLOWUP',answer=intro+'\n\n'+'\n\n'.join(sections),sources=sources)
     training_terms=['外部課程','外部教育訓練','進修','研習','職能訓練','外部培訓']
     past_terms=['上禮拜','上星期','上週','上個月','已經參加','已參加','參加過','事後','補申請','昨天參加']
     if any(t in q for t in training_terms) and any(t in q for t in past_terms):
