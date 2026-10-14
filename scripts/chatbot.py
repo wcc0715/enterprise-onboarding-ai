@@ -4,6 +4,7 @@ import argparse
 import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import re
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.error import URLError
@@ -116,6 +117,14 @@ def answer(question,mode='active',model=None,root=ROOT,history=None,provider='lo
         result['display_answer']='【草案測試：尚未發布或生效】\n\n'+result['display_answer']
     if mode=='draft':
         result['answer']='【草案測試：以下不代表已發布或生效制度】\n\n'+result['answer']
+    if result.get('sources'):
+        chunks=assistant.load_current(root) if mode=='active' else assistant.load_draft(root)
+        titles={c['source_id']:c['text'].splitlines()[0].split(' ',2)[-1] for c in chunks}
+        for source in result['sources']:
+            source['title']=titles.get(source['source_id'],source['source_id'])
+        # 只整理展示文字，原始回答與可追溯證據完整保留。
+        display=result.get('display_answer',result['answer'])
+        result['display_answer']=re.sub(r'(?m)^(?:依據|來源)：(?:LEAVE|ATT|IT|SEC|HR|ADMIN|TRAIN)-\d{3}[^\n]*\n?','',display).strip()
     return result
 
 class Handler(BaseHTTPRequestHandler):
