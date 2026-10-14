@@ -42,7 +42,17 @@
         "git_commit": null,
         "published_at": null
       },
-      "active": null,
+      "active": {
+        "version": "0.1.0",
+        "status": "ACTIVE",
+        "source": "regulations/releases/ATT/0.1.0.md",
+        "updated_date": "2026-10-14",
+        "sha256": "080b8a00a471328f8e1b00c060d175bb0ee12bba910b16f791b0b2e1dfafcd93",
+        "effective_date": "2026-10-14",
+        "summary": "使用者確認發布本機模擬正式規章；非真實企業制度或法律合規認證",
+        "git_commit": "1cf58a0927b3141ff23a959c4d6ef7a901af8f73",
+        "published_at": "2026-10-14T09:42:20.358751+00:00"
+      },
       "history": []
     },
     {
