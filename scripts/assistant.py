@@ -9,6 +9,7 @@ import regulations as store
 import retrieval
 import routing
 import intent
+import presentation
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -87,6 +88,12 @@ def respond(question, root=ROOT, mode='active'):
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    if intent.carrying_out(question) and any(t in q for t in ['設備','筆電','電腦','螢幕']):
+        c=next((c for c in chunks if c['source_id']=='IT-006'),None)
+        if c:
+            summary,evidence=presentation.render([c],root,question)
+            text='了解，你想確認的是把設備帶出公司。你要帶的是已配發的個人筆電，還是共用／另外申請的設備？也想和你確認，是否已取得攜出授權？\n\n'+summary
+            return dict(status='EQUIPMENT_CARRY_CLARIFY',answer=text,display_answer=text,sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']}],conversation_topic='設備攜出',evidence=evidence)
     selected_leave=intent.specified_leave(question)
     if selected_leave=='特休' and any(t in q for t in ['突然','臨時','今天','來不及','沒辦法提前','無法提前']):
         related=[c for c in chunks if c['source_id'] in {'LEAVE-004','LEAVE-005'}]

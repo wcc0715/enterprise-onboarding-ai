@@ -11,3 +11,8 @@ def specified_leave(question):
     found=[t for t in ['特休','年假','事假','病假'] if t in q and '不請'+t not in q and '不是'+t not in q]
     if len(found)==1:return '特休' if found[0]=='年假' else found[0]
     return None
+
+
+def carrying_out(question):
+    q=retrieval.normalize(question)
+    return any(t in q for t in ['帶出去','帶出公司','拿出去','帶走','帶回家','攜出','帶到外面'])

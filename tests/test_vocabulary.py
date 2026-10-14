@@ -18,7 +18,7 @@ class VocabularyTests(unittest.TestCase):
         for q,expected in cases:
             with self.subTest(q=q):
                 r=chatbot.answer(q,'draft')
-                self.assertEqual(r['status'],'EXTRACTED')
+                self.assertEqual(r['status'],'EQUIPMENT_CARRY_CLARIFY' if expected=='IT-006' else 'EXTRACTED')
                 self.assertIn(expected,{s['source_id'] for s in r['sources']})
     def test_unknown_alias_and_personal_balance(self):
         self.assertEqual(chatbot.answer('薪轉戶的截止日是幾號','draft')['status'],'UNRESOLVED')

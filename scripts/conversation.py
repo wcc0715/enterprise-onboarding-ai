@@ -5,7 +5,13 @@ import intent
 def resolve(question,history,root,mode):
     direct=assistant.respond(question,root,mode)
     q=assistant.normalize(question)
-    is_followup=q.startswith(('但是','那','所以','因為','因爲','就是','其實','這','它','還'))
+    is_followup=q.startswith(('但是','但','那','所以','因為','因爲','就是','其實','這','它','還'))
+    if history and intent.carrying_out(question):
+        previous=assistant.respond(history[-1],root,mode)
+        previous_equipment=any(s['regulation_id']=='IT' for s in previous['sources'])
+        current_categories={s['regulation_id'] for s in direct['sources']}
+        if previous_equipment and (not current_categories or current_categories=={'IT'}):
+            return '設備攜出：'+question,'設備攜出'
     if history and is_followup and not intent.specified_leave(question):
         previous=history[-1]
         leave=intent.specified_leave(previous)
@@ -17,7 +23,7 @@ def resolve(question,history,root,mode):
     if direct['status']!='NOT_PROVIDED' or not history:
         return question,None
     q=assistant.normalize(question)
-    if not (q.startswith(('但是','那','所以','因為','因爲','就是','其實','這','它','還')) or q in {'可以嗎','可以申請嗎','找誰','多少錢','幾天','要找誰申請','對','是','是的','沒錯','對啊'}):
+    if not (q.startswith(('但是','但','那','所以','因為','因爲','就是','其實','這','它','還')) or q in {'可以嗎','可以申請嗎','找誰','多少錢','幾天','要找誰申請','對','是','是的','沒錯','對啊'}):
         return question,None
     for previous in reversed(history[-6:]):
         result=assistant.respond(previous,root,mode)
