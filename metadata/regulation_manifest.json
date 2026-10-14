@@ -138,7 +138,17 @@
         "git_commit": null,
         "published_at": null
       },
-      "active": null,
+      "active": {
+        "version": "0.1.0",
+        "status": "ACTIVE",
+        "source": "regulations/releases/HR/0.1.0.md",
+        "updated_date": "2026-10-14",
+        "sha256": "85b8561fe02174dab02dd375c8d2c85defe251d80ef62e95442701d1134121bd",
+        "effective_date": "2026-10-14",
+        "summary": "使用者確認發布本機模擬正式規章；非真實企業制度或法律合規認證",
+        "git_commit": "5738f8e4884daf21a24c4f7ff94175568dd6eae4",
+        "published_at": "2026-10-14T09:42:20.749640+00:00"
+      },
       "history": []
     },
     {
