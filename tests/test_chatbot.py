@@ -25,6 +25,17 @@ class ChatbotTests(unittest.TestCase):
         self.assertIn('特殊情況可向主管或 HR 說明',r['answer'])
         self.assertEqual(r['sources'][0]['source_id'],'LEAVE-003')
 
+    def test_forgot_leave_clarifies_without_inventing_deadline(self):
+        for question in ['我忘記請假了怎麼辦', '我忘了申請假單', '我來不及請假']:
+            with self.subTest(question=question):
+                r=chatbot.answer(question,'draft')
+                self.assertEqual(r['status'],'LEAVE_FOLLOWUP')
+                self.assertIn('請向 HR 確認',r['answer'])
+                self.assertIn('未訂定一般漏申請',r['answer'])
+                self.assertIn('若屬緊急請假',r['answer'])
+                self.assertNotIn('三個工作天',r['answer'])
+                self.assertEqual({s['source_id'] for s in r['sources']},{'LEAVE-002','LEAVE-005'})
+
     def test_unknown_and_hrm(self):
         r=chatbot.answer('教育訓練一年補助多少錢？','draft')
         self.assertEqual(r['status'],'UNRESOLVED')

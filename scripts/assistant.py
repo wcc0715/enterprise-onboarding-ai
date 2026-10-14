@@ -114,6 +114,18 @@ def respond(question, root=ROOT, mode='active'):
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    if any(t in q for t in ['請假', '假單']) and any(t in q for t in ['忘記', '忘了', '漏申請', '沒申請', '未申請', '來不及']):
+        related=[c for c in chunks if c['source_id'] in {'LEAVE-002','LEAVE-005'}]
+        if related:
+            intro='您是忘記事前申請，還是已請假但尚未登錄 HRM？目前提供的規章未訂定一般漏申請的補辦期限或完整處理方式，請向 HR 確認。不能直接將緊急請假的補登方式套用所有漏申請情況。'
+            sections=[]
+            sources=[]
+            for c in related:
+                heading='一般請假流程' if c['source_id']=='LEAVE-002' else '若屬緊急請假，規章另有以下規定'
+                body=c['text'].split('\n',1)[1].strip()
+                sections.append(heading+'：\n'+body+f'\n來源：{c["source_id"]}｜版本 {c["version"]}｜{c["source"]}')
+                sources.append({k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']})
+            return dict(status='LEAVE_FOLLOWUP',answer=intro+'\n\n'+'\n\n'.join(sections),sources=sources)
     unknown=store.read(root/'metadata/unresolved_items.json')
     active_ids={c['regulation_id'] for c in chunks}
     for item in unknown['items']:
@@ -135,7 +147,7 @@ def respond(question, root=ROOT, mode='active'):
         if score or c['source_id'].lower() in q or title.replace('##','').strip() in q:
             hits.append((score,c))
     if not hits:
-        return dict(status='NOT_PROVIDED',answer='目前提供的現行規章中，找不到此問題的明確依據。請補充問題細節；若負責單位已確認，請向該單位詢問。',sources=[])
+        return dict(status='NOT_PROVIDED',answer=f'目前提供的{"現行規章" if mode=="active" else "草案資料"}中，找不到此問題的明確依據。請補充問題細節；若負責單位已確認，請向該單位詢問。',sources=[])
     hits.sort(key=lambda pair:(-pair[0],pair[1]['source_id']))
     selected=[c for _,c in hits[:4]]
     # 整條摘錄保留例外，絕不由關鍵字推定規則或生成新制度。
