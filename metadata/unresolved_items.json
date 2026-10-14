@@ -1,0 +1,93 @@
+{
+  "items": [
+    {
+      "id": "UNK-001",
+      "regulation": "IT",
+      "question": "設備申請處理期限",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": null
+    },
+    {
+      "id": "UNK-002",
+      "regulation": "IT",
+      "question": "設備損壞責任判定單位",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": null
+    },
+    {
+      "id": "UNK-003",
+      "regulation": "HR",
+      "question": "薪資帳戶變更截止日",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": "HR"
+    },
+    {
+      "id": "UNK-004",
+      "regulation": "HR",
+      "question": "部分福利金額",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": null
+    },
+    {
+      "id": "UNK-005",
+      "regulation": "HR",
+      "question": "獎金特殊情況與離職處理",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": null
+    },
+    {
+      "id": "UNK-006",
+      "regulation": "ADMIN",
+      "question": "工作證補發費用與期限",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": "行政部門"
+    },
+    {
+      "id": "UNK-007",
+      "regulation": "ADMIN",
+      "question": "辦公用品處理期限",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": "行政部門"
+    },
+    {
+      "id": "UNK-008",
+      "regulation": "ADMIN",
+      "question": "會議室預約限制",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": null
+    },
+    {
+      "id": "UNK-009",
+      "regulation": "TRAIN",
+      "question": "教育訓練補助上限",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": "HR"
+    },
+    {
+      "id": "UNK-010",
+      "regulation": "TRAIN",
+      "question": "教育訓練補課期限",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": "主管或訓練承辦人員"
+    },
+    {
+      "id": "UNK-011",
+      "regulation": "TRAIN",
+      "question": "外部課程事後補申請規則",
+      "status": "UNRESOLVED",
+      "blocks_publication": null,
+      "consultation_unit": null
+    }
+  ],
+  "note": "null 表示尚未確認；blocks_publication 須由發布者逐項判定，不能自行推定。諮詢單位僅沿用已提供條文中對應的承辦單位；其是否能決定新制度仍須確認。"
+}

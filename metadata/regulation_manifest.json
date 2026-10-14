@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "regulations": [
+    {
+      "id": "LEAVE",
+      "name": "請假管理",
+      "draft": {
+        "version": "0.1.0",
+        "status": "DRAFT",
+        "source": "regulations/LEAVE.md",
+        "updated_date": "2026-10-14",
+        "sha256": "d85342972968ba9ed04bd682de9b7cb6d06c6922ee0744a054370a7413fbd8e4",
+        "effective_date": null,
+        "summary": "依使用者提供內容建立初始模擬規章",
+        "git_commit": null,
+        "published_at": null
+      },
+      "active": null,
+      "history": []
+    },
+    {
+      "id": "ATT",
+      "name": "出勤管理",
+      "draft": {
+        "version": "0.1.0",
+        "status": "DRAFT",
+        "source": "regulations/ATT.md",
+        "updated_date": "2026-10-14",
+        "sha256": "080b8a00a471328f8e1b00c060d175bb0ee12bba910b16f791b0b2e1dfafcd93",
+        "effective_date": null,
+        "summary": "依使用者提供內容建立初始模擬規章",
+        "git_commit": null,
+        "published_at": null
+      },
+      "active": null,
+      "history": []
+    },
+    {
+      "id": "IT",
+      "name": "資訊設備管理",
+      "draft": {
+        "version": "0.1.0",
+        "status": "DRAFT",
+        "source": "regulations/IT.md",
+        "updated_date": "2026-10-14",
+        "sha256": "ecb228a0d3e18cd26939fc9d9053c550cca2f89b62da26f4df6814e8115ef792",
+        "effective_date": null,
+        "summary": "依使用者提供內容建立初始模擬規章",
+        "git_commit": null,
+        "published_at": null
+      },
+      "active": null,
+      "history": []
+    },
+    {
+      "id": "SEC",
+      "name": "資訊安全管理",
+      "draft": {
+        "version": "0.1.0",
+        "status": "DRAFT",
+        "source": "regulations/SEC.md",
+        "updated_date": "2026-10-14",
+        "sha256": "b55d64f5728fa5d536d656fdb1e593a1b041a1fe196d4775e3e157aab2127dff",
+        "effective_date": null,
+        "summary": "依使用者提供內容建立初始模擬規章",
+        "git_commit": null,
+        "published_at": null
+      },
+      "active": null,
+      "history": []
+    },
+    {
+      "id": "HR",
+      "name": "人事與薪資管理",
+      "draft": {
+        "version": "0.1.0",
+        "status": "DRAFT",
+        "source": "regulations/HR.md",
+        "updated_date": "2026-10-14",
+        "sha256": "85b8561fe02174dab02dd375c8d2c85defe251d80ef62e95442701d1134121bd",
+        "effective_date": null,
+        "summary": "依使用者提供內容建立初始模擬規章",
+        "git_commit": null,
+        "published_at": null
+      },
+      "active": null,
+      "history": []
+    },
+    {
+      "id": "ADMIN",
+      "name": "行政管理",
+      "draft": {
+        "version": "0.1.0",
+        "status": "DRAFT",
+        "source": "regulations/ADMIN.md",
+        "updated_date": "2026-10-14",
+        "sha256": "641b3114c449e262f82a2990e10fd2d18939f3536583d4fef5e768284b59cc9f",
+        "effective_date": null,
+        "summary": "依使用者提供內容建立初始模擬規章",
+        "git_commit": null,
+        "published_at": null
+      },
+      "active": null,
+      "history": []
+    },
+    {
+      "id": "TRAIN",
+      "name": "教育訓練管理",
+      "draft": {
+        "version": "0.1.0",
+        "status": "DRAFT",
+        "source": "regulations/TRAIN.md",
+        "updated_date": "2026-10-14",
+        "sha256": "fde690cd3db3107002487fbc830e7bb410a1f72b3b59f949d2c0d3d2b754ee5a",
+        "effective_date": null,
+        "summary": "依使用者提供內容建立初始模擬規章",
+        "git_commit": null,
+        "published_at": null
+      },
+      "active": null,
+      "history": []
+    }
+  ]
+}
