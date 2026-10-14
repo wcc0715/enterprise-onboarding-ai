@@ -1,0 +1,87 @@
+{
+  "service": {
+    "active_count": 0,
+    "draft_count": 7,
+    "model": null,
+    "app_version": "0950d6ee7dcb"
+  },
+  "protected_unchanged": true,
+  "records": [
+    {
+      "id": "EVAL-017",
+      "request": {
+        "question": "我把筆電摔壞了，是不是直接全額賠？",
+        "mode": "draft",
+        "history": [],
+        "client_version": "0950d6ee7dcb"
+      },
+      "raw_response": "{\"status\": \"EQUIPMENT_LIABILITY\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n不能直接認定你必須全額賠償。先請 IT 確認設備狀況；若涉及人為損壞，還需要依法釐清責任。正常耗損原則上由公司處理，我無法只依描述判定你的責任或賠償金額。\\n依據：IT-005｜版本 1.2.0\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n不能直接認定你必須全額賠償。先請 IT 確認設備狀況；若涉及人為損壞，還需要依法釐清責任。正常耗損原則上由公司處理，我無法只依描述判定你的責任或賠償金額。\\n依據：IT-005｜版本 1.2.0\", \"sources\": [{\"source_id\": \"IT-005\", \"regulation_id\": \"IT\", \"version\": \"1.2.0\", \"source\": \"regulations/IT.md\", \"effective_date\": null, \"git_commit\": null}], \"evidence\": [{\"source_id\": \"IT-005\", \"version\": \"1.2.0\", \"text\": \"由 IT 確認技術狀況。正常耗損原則上由公司處理。涉及人為損壞時，須依法釐清責任。不得直接認定員工必須全額賠償。\"}], \"conversation_topic\": \"設備損壞責任\", \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "EQUIPMENT_LIABILITY",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n不能直接認定你必須全額賠償。先請 IT 確認設備狀況；若涉及人為損壞，還需要依法釐清責任。正常耗損原則上由公司處理，我無法只依描述判定你的責任或賠償金額。\n依據：IT-005｜版本 1.2.0",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n不能直接認定你必須全額賠償。先請 IT 確認設備狀況；若涉及人為損壞，還需要依法釐清責任。正常耗損原則上由公司處理，我無法只依描述判定你的責任或賠償金額。\n依據：IT-005｜版本 1.2.0",
+        "sources": [
+          {
+            "source_id": "IT-005",
+            "regulation_id": "IT",
+            "version": "1.2.0",
+            "source": "regulations/IT.md",
+            "effective_date": null,
+            "git_commit": null
+          }
+        ],
+        "evidence": [
+          {
+            "source_id": "IT-005",
+            "version": "1.2.0",
+            "text": "由 IT 確認技術狀況。正常耗損原則上由公司處理。涉及人為損壞時，須依法釐清責任。不得直接認定員工必須全額賠償。"
+          }
+        ],
+        "conversation_topic": "設備損壞責任",
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "id": "VARIANT",
+      "request": {
+        "question": "螢幕被我弄壞了，要賠多少",
+        "mode": "draft",
+        "history": [],
+        "client_version": "0950d6ee7dcb"
+      },
+      "raw_response": "{\"status\": \"EQUIPMENT_LIABILITY\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n不能直接認定你必須全額賠償。先請 IT 確認設備狀況；若涉及人為損壞，還需要依法釐清責任。正常耗損原則上由公司處理，我無法只依描述判定你的責任或賠償金額。\\n依據：IT-005｜版本 1.2.0\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n不能直接認定你必須全額賠償。先請 IT 確認設備狀況；若涉及人為損壞，還需要依法釐清責任。正常耗損原則上由公司處理，我無法只依描述判定你的責任或賠償金額。\\n依據：IT-005｜版本 1.2.0\", \"sources\": [{\"source_id\": \"IT-005\", \"regulation_id\": \"IT\", \"version\": \"1.2.0\", \"source\": \"regulations/IT.md\", \"effective_date\": null, \"git_commit\": null}], \"evidence\": [{\"source_id\": \"IT-005\", \"version\": \"1.2.0\", \"text\": \"由 IT 確認技術狀況。正常耗損原則上由公司處理。涉及人為損壞時，須依法釐清責任。不得直接認定員工必須全額賠償。\"}], \"conversation_topic\": \"設備損壞責任\", \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "EQUIPMENT_LIABILITY",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n不能直接認定你必須全額賠償。先請 IT 確認設備狀況；若涉及人為損壞，還需要依法釐清責任。正常耗損原則上由公司處理，我無法只依描述判定你的責任或賠償金額。\n依據：IT-005｜版本 1.2.0",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n不能直接認定你必須全額賠償。先請 IT 確認設備狀況；若涉及人為損壞，還需要依法釐清責任。正常耗損原則上由公司處理，我無法只依描述判定你的責任或賠償金額。\n依據：IT-005｜版本 1.2.0",
+        "sources": [
+          {
+            "source_id": "IT-005",
+            "regulation_id": "IT",
+            "version": "1.2.0",
+            "source": "regulations/IT.md",
+            "effective_date": null,
+            "git_commit": null
+          }
+        ],
+        "evidence": [
+          {
+            "source_id": "IT-005",
+            "version": "1.2.0",
+            "text": "由 IT 確認技術狀況。正常耗損原則上由公司處理。涉及人為損壞時，須依法釐清責任。不得直接認定員工必須全額賠償。"
+          }
+        ],
+        "conversation_topic": "設備損壞責任",
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    }
+  ]
+}

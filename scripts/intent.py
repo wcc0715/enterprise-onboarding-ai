@@ -48,3 +48,10 @@ def data_incident(question):
     events=['寄錯','誤寄','誤傳','傳錯','發錯','寄到錯的人','傳到錯的人','外洩','洩漏','資料外流']
     data=['資料','文件','附件','檔案','客戶','個資','機密','公司信件']
     return any(t in q for t in events) and any(t in q for t in data)
+
+
+def equipment_liability(question):
+    q=retrieval.normalize(question)
+    if '責任' in q and any(t in q for t in ['誰','單位','判定']):
+        return False  # 責任認定單位尚未提供，不能把 IT 技術確認當作責任裁定。
+    return any(t in q for t in ['電腦','筆電','螢幕','設備']) and any(t in q for t in ['賠','責任','摔壞','弄壞','人為損壞','正常耗損'])

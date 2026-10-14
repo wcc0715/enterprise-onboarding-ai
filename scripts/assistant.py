@@ -102,6 +102,11 @@ def respond(question, root=ROOT, mode='active'):
         return version_error
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    if intent.equipment_liability(question):
+        c=next((c for c in chunks if c['source_id']=='IT-005'),None)
+        if c:
+            summary,evidence=presentation.render([c],root,question)
+            return dict(status='EQUIPMENT_LIABILITY',answer=summary,display_answer=summary,sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']}],evidence=evidence,conversation_topic='設備損壞責任')
     if intent.data_incident(question):
         c=next((c for c in chunks if c['source_id']=='SEC-006'),None)
         if c:
