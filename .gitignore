@@ -7,3 +7,5 @@ metadata/.operation.lock
 .env
 .env.*
 !.env.example
+
+.venv/

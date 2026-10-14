@@ -12,7 +12,8 @@ class PresentationTests(unittest.TestCase):
         self.assertIn('如果你打算用特休出國，建議提前三個工作天通知主管',r['display_answer'])
         self.assertIn('不是強制期限',r['display_answer'])
         self.assertIn('須依法和你協商',r['display_answer'])
-        self.assertIn('LEAVE-004',r['display_answer'])
+        self.assertEqual(r['sources'][0]['source_id'],'LEAVE-004')
+        self.assertEqual(r['sources'][0]['title'],'特休')
         self.assertEqual(r['evidence'][0]['source_id'],'LEAVE-004')
     def test_every_clause_has_current_guarded_summary(self):
         chunks=chatbot.assistant.load_draft(chatbot.ROOT)

@@ -186,3 +186,7 @@ python3 scripts/start_cloud.py --model gemma4:31b --port 8767
 要求模型回傳 JSON（未使用 Ollama Cloud 不支援的 schema 強制格式）。程式驗證來源、完整證據原文與阿拉伯數字；格式、證據或請求失敗即回退本機條文摘要。這不能保證自由生成語意、中文數字或例外一定正確，雲端回答明確標示需核對完整條文。真實模型的52題品質驗證尚未執行，既有測試結果不能直接沿用。107項單元測試通過，雲端測試使用mock／缺金鑰情境。
 
 官方文件：https://docs.ollama.com/cloud 、 https://docs.ollama.com/api/authentication 。
+
+## 面試展示網站
+
+公開部署準備已加入，部署步驟見 [部署說明](docs/DEPLOYMENT.md)。GitHub 是程式與歷史來源，並不是聊天網站。實際展示網址需等部署成功後填入。公開入口只查詢模擬 ACTIVE 規章，預設不啟用雲端模型；可在主機秘密設定中配置 Ollama。
