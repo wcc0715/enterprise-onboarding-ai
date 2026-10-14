@@ -36,6 +36,25 @@ class ChatbotTests(unittest.TestCase):
                 self.assertNotIn('三個工作天',r['answer'])
                 self.assertEqual({s['source_id'] for s in r['sources']},{'LEAVE-002','LEAVE-005'})
 
+    def test_colloquial_training_subsidy_request(self):
+        questions=['我下禮拜打算報名一個職能訓練活動，不知道公司能不能給補助？',
+                   '我想報名進修課程，公司有補助嗎？',
+                   '參加研習活動可以申請補助嗎？']
+        for question in questions:
+            with self.subTest(question=question):
+                r=chatbot.answer(question,'draft')
+                self.assertEqual(r['status'],'EXTRACTED')
+                self.assertIn('事前提出申請',r['answer'])
+                self.assertIn('由主管確認課程必要性',r['answer'])
+                self.assertIn('HR 依資格、需求及預算核定',r['answer'])
+                self.assertIn('補助金額尚未訂定',r['answer'])
+                self.assertIn('完訓證明',r['answer'])
+                self.assertEqual(r['sources'][0]['source_id'],'TRAIN-003')
+        r=chatbot.answer('職能訓練補助上限是多少？','draft')
+        self.assertEqual(r['status'],'UNRESOLVED')
+        self.assertIn('尚未訂定統一補助上限',r['answer'])
+        self.assertEqual(chatbot.answer('午餐能不能給補助？','draft')['status'],'NOT_PROVIDED')
+
     def test_unknown_and_hrm(self):
         r=chatbot.answer('教育訓練一年補助多少錢？','draft')
         self.assertEqual(r['status'],'UNRESOLVED')

@@ -27,7 +27,7 @@ TOPICS = {
  'ADMIN-001': ['工作證'], 'ADMIN-002': ['文具', '辦公用品'],
  'ADMIN-003': ['冷氣', '照明', '桌椅'], 'ADMIN-004': ['訪客'],
  'ADMIN-005': ['會議室'], 'TRAIN-001': ['新進訓練', '共同課程'],
- 'TRAIN-002': ['補課', '缺席'], 'TRAIN-003': ['外部課程', '教育訓練補助', '訓練補助'],
+ 'TRAIN-002': ['補課', '缺席'], 'TRAIN-003': ['外部課程', '外部教育訓練', '教育訓練補助', '訓練補助', '職能訓練', '外訓'],
  'TRAIN-004': ['訓練紀錄', '完訓紀錄', '心得'],
 }
 UNKNOWN_RULES = {
@@ -39,7 +39,7 @@ UNKNOWN_RULES = {
  'UNK-006': (['工作證'], ['費用', '多少', '多久', '幾天']),
  'UNK-007': (['辦公用品', '文具'], ['多久', '期限', '幾天']),
  'UNK-008': (['會議室'], ['限制', '上限', '最多']),
- 'UNK-009': (['教育訓練', '訓練補助', '外部課程'], ['多少', '上限', '額度']),
+ 'UNK-009': (['教育訓練', '訓練補助', '外部課程', '職能訓練', '進修', '研習', '培訓', '訓練活動'], ['多少', '上限', '額度']),
  'UNK-010': (['補課'], ['期限', '多久', '幾天']),
  'UNK-011': (['外部課程', '外部訓練', '外部教育訓練'], ['事後', '補申請']),
 }
@@ -144,6 +144,8 @@ def respond(question, root=ROOT, mode='active'):
         title=normalize(c['text'].splitlines()[0])
         terms=TOPICS.get(c['source_id'],[])
         score=sum(len(t) for t in terms if t in q)
+        if c['source_id']=='TRAIN-003' and any(t in q for t in ['課程','進修','研習','培訓','訓練活動','職能訓練']) and any(t in q for t in ['補助','報名','外部','申請']):
+            score+=10
         if score or c['source_id'].lower() in q or title.replace('##','').strip() in q:
             hits.append((score,c))
     if not hits:
