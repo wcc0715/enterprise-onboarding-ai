@@ -12,10 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 # 以下僅為問題語意對照，並非新增企業制度。
 TOPICS = {
  'LEAVE-001': ['事假'], 'LEAVE-002': ['請假流程', '申請假單'],
- 'LEAVE-003': ['病假', '診斷', '藥單'], 'LEAVE-004': ['特休'],
+ 'LEAVE-003': ['病假', '診斷', '藥單', '發燒', '不舒服', '生病', '看醫生', '就醫'], 'LEAVE-004': ['特休'],
  'LEAVE-005': ['緊急請假'], 'ATT-001': ['上班時間', '工作時間', '午休'],
- 'ATT-002': ['忘記打卡', '漏打卡', '補登'], 'ATT-003': ['遲到'],
- 'ATT-004': ['加班', '補休'], 'IT-001': ['電腦故障', '螢幕故障'],
+ 'ATT-002': ['忘記打卡', '漏打卡', '補登', '沒打卡', '忘了打卡'], 'ATT-003': ['遲到'],
+ 'ATT-004': ['加班', '補休'], 'IT-001': ['電腦故障', '螢幕故障', '電腦壞', '電腦不能開', '螢幕壞'],
  'IT-002': ['備用設備', '備用電腦'], 'IT-003': ['安裝軟體', '外部維修'],
  'IT-004': ['申請設備', '設備申請', '額外設備'], 'IT-005': ['設備損壞', '賠償'],
  'IT-006': ['筆電攜出', '設備攜出', '借給'], 'SEC-001': ['密碼', '帳密'],
@@ -83,14 +83,33 @@ def load_current(root):
         raise ValueError('索引與現行版本不一致，請管理者重新同步。')
     return index['chunks']
 
-def respond(question, root=ROOT):
+def load_draft(root):
+    """僅供管理者明示選擇的草案測試，不寫入正式索引。"""
+    manifest=store.read(root/'metadata/regulation_manifest.json')
+    chunks=[]
+    for r in manifest['regulations']:
+        d=r['draft']
+        path=(root/d['source']).resolve()
+        if d['status']!='DRAFT' or not path.is_relative_to(root.resolve()):
+            raise ValueError('草案來源或狀態不符。')
+        text=path.read_text(encoding='utf-8')
+        if store.sha(text)!=d['sha256']:
+            raise ValueError('草案已修改但 metadata 未更新，請先審閱與 revise。')
+        for key,body in store.clauses(text).items():
+            chunks.append(dict(source_id=key,regulation_id=r['id'],version=d['version'],source=d['source'],
+                               effective_date=None,git_commit=None,text=body))
+    return chunks
+
+def respond(question, root=ROOT, mode='active'):
+    if mode not in {'active','draft'}:
+        raise ValueError('不支援的模式。')
     q=normalize(question)
     if not q:
         return dict(status='CLARIFY',answer='請輸入您想詢問的制度問題。',sources=[])
     if '特休' in q and any(t in q for t in ['我還有', '剩幾', '剩多少', '餘額', '剩餘']):
         return dict(status='HRM_UNAVAILABLE',answer='目前無法直接查詢您的個人特休餘額，請登入公司 HRM 系統查看。',sources=[])
     try:
-        chunks=load_current(root)
+        chunks=load_current(root) if mode=='active' else load_draft(root)
     except (OSError,ValueError,KeyError,TypeError) as e:
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
     if not chunks:
