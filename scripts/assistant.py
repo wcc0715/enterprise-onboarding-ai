@@ -232,7 +232,7 @@ def respond(question, root=ROOT, mode='active'):
             answer=f'目前提供的公司規章尚未訂定「{item["question"]}」。{suffix}'
             if item['id']=='UNK-009':
                 answer='目前提供的公司規章尚未訂定統一補助上限。建議向 HR 確認。'
-            return dict(status='UNRESOLVED',answer=answer,sources=[],unresolved_id=item['id'])
+            return dict(status='UNRESOLVED',answer=answer,display_answer=answer,sources=[],unresolved_id=item['id'],conversation_topic=item['question'],unresolved_regulation=item['regulation'])
     vague_equipment={'設備','我需要設備','需要設備','我要設備','我想申請設備','我要申請設備','申請設備','我需要工作設備','我想申請工作設備'}
     if query['original'].rstrip('？?！!。') in vague_equipment and any(c['source_id']=='IT-004' for c in chunks):
         text='可以，我幫你確認設備申請流程。你需要哪種設備、準備用來做什麼？會帶出公司使用嗎？先確認這些資訊，才能區分設備配置與攜出授權；目前還不能保證設備一定能提供。'

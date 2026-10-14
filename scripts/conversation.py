@@ -31,16 +31,20 @@ def resolve(question,history,root,mode):
             prior=assistant.respond(previous,root,mode)
             if any(s['source_id']=='LEAVE-004' for s in prior['sources']):
                 return '特休：'+question,'特休'
-    if direct['status']!='NOT_PROVIDED' or not history:
+    if direct['status'] not in {'NOT_PROVIDED','CLARIFY_INTENT'} or not history:
         return question,None
     q=assistant.normalize(question)
     if not (q.startswith(('但是','但','那','所以','因為','因爲','就是','其實','這','它','還')) or q in {'可以嗎','可以申請嗎','找誰','多少錢','幾天','要找誰申請','對','是','是的','沒錯','對啊'}):
         return question,None
     for previous in reversed(history[-6:]):
         result=assistant.respond(previous,root,mode)
+        if result['status']=='UNRESOLVED' and result.get('conversation_topic'):
+            return result['conversation_topic']+'：'+question,result['conversation_topic']
         ids=[s['source_id'] for s in result['sources']]
         if result['status']=='CLARIFY_INTENT':
             ids=result['candidate_source_ids']
+        if direct['status']=='CLARIFY_INTENT' and not set(direct.get('candidate_source_ids',[])).intersection(ids):
+            return question,None
         if result.get('conversation_topic') and result['sources']:
             topic=result['conversation_topic']
             return topic+'：'+question,topic
