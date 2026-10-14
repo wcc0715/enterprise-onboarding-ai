@@ -114,7 +114,7 @@ def respond(question, root=ROOT, mode='active'):
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
-    if any(t in q for t in ['請假', '假單']) and any(t in q for t in ['忘記', '忘了', '漏申請', '沒申請', '未申請', '來不及']):
+    if '緊急請假' not in q and any(t in q for t in ['請假', '假單']) and any(t in q for t in ['忘記', '忘了', '漏申請', '沒申請', '未申請', '來不及']):
         related=[c for c in chunks if c['source_id'] in {'LEAVE-002','LEAVE-005'}]
         if related:
             intro='您是忘記事前申請，還是已請假但尚未登錄 HRM？目前提供的規章未訂定一般漏申請的補辦期限或完整處理方式，請向 HR 確認。不能直接將緊急請假的補登方式套用所有漏申請情況。'
