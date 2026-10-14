@@ -85,6 +85,17 @@ def respond(question, root=ROOT, mode='active'):
         return dict(status='INDEX_UNAVAILABLE',answer=f'目前無法提供現行規章回答：{e}',sources=[])
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    if 'leave-notice' in query['intent_ids'] and not any(t in q for t in ['事假','特休','病假','緊急請假']):
+        related=[c for c in chunks if c['source_id'] in {'LEAVE-001','LEAVE-004'}]
+        if related:
+            intro='您預計使用特休還是一般事假？出國或旅遊本身無法判定假別，通知與申請要求需依假別區分。若不確定假別，請向 HR 確認。'
+            sections=[];sources=[]
+            for c in related:
+                title='若使用一般事假' if c['source_id']=='LEAVE-001' else '若使用特休'
+                body=c['text'].split('\n',1)[1].strip()
+                sections.append(title+'：\n'+body+f'\n來源：{c["source_id"]}｜版本 {c["version"]}｜{c["source"]}')
+                sources.append({k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']})
+            return dict(status='LEAVE_TYPE_CLARIFY',answer=intro+'\n\n'+'\n\n'.join(sections),sources=sources,retrieval=query)
     if '緊急請假' not in q and any(t in q for t in ['請假', '假單']) and any(t in q for t in ['忘記', '忘了', '漏申請', '沒申請', '未申請', '來不及']):
         related=[c for c in chunks if c['source_id'] in {'LEAVE-002','LEAVE-005'}]
         if related:

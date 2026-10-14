@@ -1,0 +1,293 @@
+{
+  "note": "檢索測試語料，不是企業制度；每條文兩種表達。",
+  "cases": [
+    {
+      "source_id": "LEAVE-001",
+      "question": "我有私人事情，事假要提前多久申請？"
+    },
+    {
+      "source_id": "LEAVE-001",
+      "question": "處理私事請假要怎麼辦？"
+    },
+    {
+      "source_id": "LEAVE-002",
+      "question": "請假手續有哪些？"
+    },
+    {
+      "source_id": "LEAVE-002",
+      "question": "假單怎麼填？"
+    },
+    {
+      "source_id": "LEAVE-003",
+      "question": "肚子痛不能上班怎麼辦？"
+    },
+    {
+      "source_id": "LEAVE-003",
+      "question": "身體不適要交什麼證明？"
+    },
+    {
+      "source_id": "LEAVE-004",
+      "question": "特別休假要主管批准嗎？"
+    },
+    {
+      "source_id": "LEAVE-004",
+      "question": "年假要提前多久說？"
+    },
+    {
+      "source_id": "LEAVE-005",
+      "question": "突然有急事，可以晚點補假單嗎？"
+    },
+    {
+      "source_id": "LEAVE-005",
+      "question": "臨時急事無法先登系統怎麼辦？"
+    },
+    {
+      "source_id": "ATT-001",
+      "question": "公司幾點上班？"
+    },
+    {
+      "source_id": "ATT-001",
+      "question": "中午休息多久？"
+    },
+    {
+      "source_id": "ATT-002",
+      "question": "今天沒有打卡怎麼補？"
+    },
+    {
+      "source_id": "ATT-002",
+      "question": "忘記刷卡可以補登嗎？"
+    },
+    {
+      "source_id": "ATT-003",
+      "question": "塞車會晚到，怎麼通知？"
+    },
+    {
+      "source_id": "ATT-003",
+      "question": "今天趕不上上班怎麼辦？"
+    },
+    {
+      "source_id": "ATT-004",
+      "question": "下班後工作一定要先申請嗎？"
+    },
+    {
+      "source_id": "ATT-004",
+      "question": "加班費可以換補休嗎？"
+    },
+    {
+      "source_id": "IT-001",
+      "question": "我的螢幕黑掉找誰？"
+    },
+    {
+      "source_id": "IT-001",
+      "question": "鍵盤壞了不能工作怎麼辦？"
+    },
+    {
+      "source_id": "IT-002",
+      "question": "修電腦時一定有備機嗎？"
+    },
+    {
+      "source_id": "IT-002",
+      "question": "設備換新由誰評估？"
+    },
+    {
+      "source_id": "IT-003",
+      "question": "可以自己修電腦嗎？"
+    },
+    {
+      "source_id": "IT-003",
+      "question": "工作電腦能送外面修嗎？"
+    },
+    {
+      "source_id": "IT-004",
+      "question": "我想要第二個螢幕怎麼申請？"
+    },
+    {
+      "source_id": "IT-004",
+      "question": "主管同意新增設備就能領嗎？"
+    },
+    {
+      "source_id": "IT-005",
+      "question": "電腦摔壞要全部賠嗎？"
+    },
+    {
+      "source_id": "IT-005",
+      "question": "設備正常耗損誰處理？"
+    },
+    {
+      "source_id": "IT-006",
+      "question": "筆電帶回家每次要申請嗎？"
+    },
+    {
+      "source_id": "IT-006",
+      "question": "共用設備借用要登記嗎？"
+    },
+    {
+      "source_id": "SEC-001",
+      "question": "忘記密碼該怎麼辦？"
+    },
+    {
+      "source_id": "SEC-001",
+      "question": "帳密共用可以嗎？"
+    },
+    {
+      "source_id": "SEC-002",
+      "question": "點了可疑連結要怎麼辦？"
+    },
+    {
+      "source_id": "SEC-002",
+      "question": "收到奇怪郵件可以開附件嗎？"
+    },
+    {
+      "source_id": "SEC-003",
+      "question": "可以用自己的隨身碟存公司資料嗎？"
+    },
+    {
+      "source_id": "SEC-003",
+      "question": "私人隨身碟有例外嗎？"
+    },
+    {
+      "source_id": "SEC-004",
+      "question": "公司資料可以貼給ChatGPT嗎？"
+    },
+    {
+      "source_id": "SEC-004",
+      "question": "使用AI工具要注意什麼？"
+    },
+    {
+      "source_id": "SEC-005",
+      "question": "我要開通權限找誰？"
+    },
+    {
+      "source_id": "SEC-005",
+      "question": "可以用同事的共用帳號嗎？"
+    },
+    {
+      "source_id": "SEC-006",
+      "question": "我把公司資料寄錯人怎麼辦？"
+    },
+    {
+      "source_id": "SEC-006",
+      "question": "發現資料外流要提供什麼資訊？"
+    },
+    {
+      "source_id": "HR-001",
+      "question": "每月薪水幾號發？"
+    },
+    {
+      "source_id": "HR-001",
+      "question": "薪資入帳遇假日怎麼辦？"
+    },
+    {
+      "source_id": "HR-002",
+      "question": "我被少發薪水找誰？"
+    },
+    {
+      "source_id": "HR-002",
+      "question": "薪資不對只能下月補嗎？"
+    },
+    {
+      "source_id": "HR-003",
+      "question": "改薪資帳戶要誰申請？"
+    },
+    {
+      "source_id": "HR-003",
+      "question": "更換薪轉戶怎麼驗證？"
+    },
+    {
+      "source_id": "HR-004",
+      "question": "到職福利從什麼時候開始？"
+    },
+    {
+      "source_id": "HR-004",
+      "question": "公司有哪些員工活動福利？"
+    },
+    {
+      "source_id": "HR-005",
+      "question": "人事系統能看哪些資料？"
+    },
+    {
+      "source_id": "HR-005",
+      "question": "可以查同事資料嗎？"
+    },
+    {
+      "source_id": "HR-006",
+      "question": "年底獎金有保障嗎？"
+    },
+    {
+      "source_id": "HR-006",
+      "question": "績效獎金一定有固定金額嗎？"
+    },
+    {
+      "source_id": "ADMIN-001",
+      "question": "員工證不見了找誰？"
+    },
+    {
+      "source_id": "ADMIN-001",
+      "question": "門禁卡不見要停用嗎？"
+    },
+    {
+      "source_id": "ADMIN-002",
+      "question": "我要領文具要主管批准嗎？"
+    },
+    {
+      "source_id": "ADMIN-002",
+      "question": "買辦公用品遇非庫存品怎麼辦？"
+    },
+    {
+      "source_id": "ADMIN-003",
+      "question": "辦公室空調壞了找誰？"
+    },
+    {
+      "source_id": "ADMIN-003",
+      "question": "椅子壞了可以自己修嗎？"
+    },
+    {
+      "source_id": "ADMIN-004",
+      "question": "客戶來訪要先通知誰？"
+    },
+    {
+      "source_id": "ADMIN-004",
+      "question": "外人進公司辦公區需要陪同嗎？"
+    },
+    {
+      "source_id": "ADMIN-005",
+      "question": "借會議室需要主管簽核嗎？"
+    },
+    {
+      "source_id": "ADMIN-005",
+      "question": "不用了如何取消會議室預訂？"
+    },
+    {
+      "source_id": "TRAIN-001",
+      "question": "新人課程有哪些必修？"
+    },
+    {
+      "source_id": "TRAIN-001",
+      "question": "入職訓練每個部門相同嗎？"
+    },
+    {
+      "source_id": "TRAIN-002",
+      "question": "沒參加訓練怎麼辦？"
+    },
+    {
+      "source_id": "TRAIN-002",
+      "question": "錯過訓練可以看教材補課嗎？"
+    },
+    {
+      "source_id": "TRAIN-003",
+      "question": "職能訓練能不能給補助？"
+    },
+    {
+      "source_id": "TRAIN-003",
+      "question": "外部培訓完成後需要什麼文件？"
+    },
+    {
+      "source_id": "TRAIN-004",
+      "question": "上課紀錄去哪裡查？"
+    },
+    {
+      "source_id": "TRAIN-004",
+      "question": "訓練紀錄有誤找誰更正？"
+    }
+  ]
+}

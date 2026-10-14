@@ -43,4 +43,22 @@ class VocabularyTests(unittest.TestCase):
         self.assertNotIn('TRAIN-003',retrieval.expand('我要補助',data)['target_ids'])
         self.assertIn('TRAIN-003',retrieval.expand('我要報名研習',data)['target_ids'])
 
+
+class FullCoverageTests(unittest.TestCase):
+    def test_all_clauses_have_two_phrase_cases(self):
+        cases=json.loads((chatbot.ROOT/'tests/vocabulary_cases.json').read_text())['cases']
+        chunks=chatbot.assistant.load_draft(chatbot.ROOT)
+        self.assertEqual({c['source_id'] for c in chunks},{c['source_id'] for c in cases})
+        for item in cases:
+            with self.subTest(question=item['question']):
+                r=chatbot.answer(item['question'],'draft')
+                self.assertIn(item['source_id'],{s['source_id'] for s in r['sources']})
+    def test_travel_does_not_assume_leave_type(self):
+        for q in ['我要出國，幾天前要請假','下個月去旅遊，休假需要提前多久說？']:
+            r=chatbot.answer(q,'draft')
+            self.assertEqual(r['status'],'LEAVE_TYPE_CLARIFY')
+            self.assertIn('特休還是一般事假',r['answer'])
+            self.assertIn('非強制期限',r['answer'])
+            self.assertIn('一個工作天',r['answer'])
+
 if __name__=='__main__':unittest.main()

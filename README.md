@@ -126,3 +126,5 @@ python3 scripts/chatbot.py --port 8766 --model <本機模型名稱>
 例如 concepts 中 canonical=特休、aliases=[年假, 特別休假]；context_rules 的 all_groups 每组至少命中一詞，所有組都命中才套用。可將進修／研習搭配報名／補助導向 TRAIN-003，避免只因「補助」就任意回覆訓練制度。topics 對應穩定條文編號，來源候選仍限當次允許的 ACTIVE 或草案測試區塊。
 
 先執行 `python3 -m unittest discover -s tests -v` 檢查同義詞與未知拒答。這些詞彙只供檢索，不代表「年假」或活動已獲認定符合公司補助資格；回答仍須以條文及人工核定為依據。未收錄的措辭、錯別字與複雜語意仍可能漏查，下一階段可加入本機 embedding 語意檢索，經獨立品質驗證後再啟用。
+
+詞彙已覆蓋七類全部 36 條文，每條文有兩個改寫測試問題，共 72 題，存於 tests/vocabulary_cases.json；逐條對照見 docs/VOCABULARY_COVERAGE.md。出國／旅遊搭配提前多久的問題，若未提供假別，先釐清特休或事假，再列出各自條文，不直接認定旅遊一定使用特休。已通過 25 項 unittest，含 72 題子案例；尚不能保證所有未見問法都能理解。
