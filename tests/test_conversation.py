@@ -5,6 +5,42 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import chatbot
 
 class ConversationTests(unittest.TestCase):
+    def test_pet_advice_followup_answers_next_step(self):
+        r=chatbot.answer('你的建議是？','draft',history=['我家狗生病，我要請假'])
+        self.assertEqual(r['status'],'PET_LEAVE_ADVICE')
+        self.assertEqual(r['context_topic'],'請假')
+        self.assertIn('我的建議是先處理通知',r['display_answer'])
+        self.assertNotIn('你想使用事假還是特休',r['display_answer'])
+        self.assertIn('請向 HR 確認',r['display_answer'])
+    def test_pet_illness_focuses_on_leave_not_employee_illness(self):
+        for question in ['我家狗狗突然生病了，我想請假','我的貓咪不舒服，我想請假']:
+            r=chatbot.answer(question,'draft')
+            self.assertEqual(r['status'],'PET_LEAVE_CLARIFY')
+            self.assertIn('先通知主管',r['display_answer'])
+            self.assertNotIn('LEAVE-003',{s['source_id'] for s in r['sources']})
+            self.assertNotIn('診斷',r['display_answer'])
+    def test_pet_subject_correction_preserves_leave_task(self):
+        r=chatbot.answer('我家狗狗啦，不是我','draft',history=['我家狗狗突然生病了，我想請假'])
+        self.assertEqual(r['status'],'PET_LEAVE_CLARIFY')
+        self.assertIn('HRM',r['display_answer'])
+        self.assertNotIn('LEAVE-003',{s['source_id'] for s in r['sources']})
+    def test_pet_does_not_create_leave_without_context(self):
+        r=chatbot.answer('我家狗狗啦，不是我','draft')
+        self.assertNotEqual(r['status'],'PET_LEAVE_CLARIFY')
+        r=chatbot.answer('我家狗狗突然生病了，我想請假','active')
+        self.assertEqual(r['status'],'NO_ACTIVE_REGULATIONS')
+    def test_leave_choice_advice_keeps_specific_question(self):
+        r=chatbot.answer('那你的建議呢','draft',history=['我家狗狗突然吐了，我要請假','是，我應該請事假還是緊急請假'])
+        self.assertEqual(r['status'],'LEAVE_ADVICE')
+        self.assertIn('先儘速通知主管',r['display_answer'])
+        self.assertIn('請向 HR 確認',r['display_answer'])
+        self.assertEqual({s['source_id'] for s in r['sources']},{'LEAVE-001','LEAVE-002','LEAVE-005'})
+        self.assertNotIn('LEAVE-003',{s['source_id'] for s in r['sources']})
+    def test_advice_does_not_bypass_version_or_active_boundary(self):
+        r=chatbot.answer('那你的建議呢','draft',history=['IT-006 v1.1 可以帶出去嗎'])
+        self.assertEqual(r['sources'],[])
+        r=chatbot.answer('那你的建議呢','active',history=['事假還是緊急請假'])
+        self.assertEqual(r['status'],'NO_ACTIVE_REGULATIONS')
     def test_training_followup_preserves_unknown_boundary(self):
         first='我上禮拜去參加一個進修，公司說可以補助，我要找誰申請'
         r=chatbot.answer(first,'draft')

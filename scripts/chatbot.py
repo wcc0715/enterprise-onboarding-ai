@@ -11,6 +11,9 @@ import assistant
 import conversation
 import presentation
 import cloud_generation
+import semantic_intent
+import versions
+import intent
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -18,10 +21,44 @@ def app_version():
     files=sorted((ROOT/'web').glob('*'))+sorted((ROOT/'scripts').glob('*.py'))+sorted((ROOT/'config').glob('*.json'))
     return hashlib.sha256(b''.join(p.read_bytes() for p in files if p.is_file())).hexdigest()[:12]
 
+# 標記已載入的程式版本，不能把磁碟的新版本冒充成運行中的版本。
+RUNNING_VERSION=app_version()
+
 def answer(question,mode='active',model=None,root=ROOT,history=None,provider='local'):
     effective,context=conversation.resolve(question,history or [],root,mode)
     result=assistant.respond(effective,root,mode)
+    interpretation_status='未啟用'
+    interpretation_error=None
+    semantic=None
+    eligible={'EXTRACTED','NOT_PROVIDED','CLARIFY_INTENT','PET_LEAVE_CLARIFY','PET_LEAVE_ADVICE','FAMILY_LEAVE_CLARIFY','FAMILY_LEAVE_ADVICE'}
+    constraints=versions.constraints(effective)
+    history_version=any(versions.constraints(q)['requested'] or versions.constraints(q)['excluded'] for q in (history or []))
+    if model and provider=='cloud' and result['status'] in eligible and not (constraints['requested'] or constraints['excluded'] or history_version):
+        try:
+            chunks=assistant.load_current(root) if mode=='active' else assistant.load_draft(root)
+            semantic=semantic_intent.interpret(question,history or [],chunks,model)
+            interpretation_status='模型意圖解析成功'
+            if semantic['task']=='leave' and semantic['subject'] in {'family','pet'}:
+                # 模型不得直接生成制度；把對象傳入既有邊界回覆。
+                leave=intent.specified_leave(effective)
+                subject='寵物' if semantic['subject']=='pet' else '家人'
+                effective=subject+'生病，我要請'+(leave or '假')+('，突然來不及' if semantic['urgent'] else '')+('，請給建議' if semantic['advice'] else '')
+                result=assistant.respond(effective,root,mode)
+            elif semantic['task']=='leave' and semantic['subject'] in {'other','unknown'} and any(s['source_id']=='LEAVE-003' for s in result.get('sources',[])):
+                result=dict(status='LEAVE_SUBJECT_CLARIFY',answer='你想請假，我了解。想確認一下：是你本人生病，還是需要照顧其他人？我不能在對象不明時直接套用本人的病假規定；假別不確定時，請向 HR 確認。',sources=[])
+            elif semantic['source_ids'] and result['status'] in {'EXTRACTED','NOT_PROVIDED','CLARIFY_INTENT'}:
+                lookup={c['source_id']:c for c in chunks}
+                selected=[lookup[i] for i in semantic['source_ids']]
+                # 既有詞彙檢索找到的例外仍保留，模型不能刪除它們。
+                for source in result.get('sources',[]):
+                    if source['source_id'] not in semantic['source_ids']:selected.append(lookup[source['source_id']])
+                result=dict(status='EXTRACTED',answer='',sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in selected])
+        except Exception as error:
+            interpretation_error=cloud_generation.error_code(error)
+            interpretation_status='意圖解析失敗，沿用規則檢索'
     result['context_topic']=context
+    result['interpretation_status']=interpretation_status
+    if interpretation_error:result['interpretation_error']=interpretation_error
     result.update(mode=mode,engine='條文檢索與受控組合',model_status='未啟用')
     if result['status']=='EXTRACTED':
         chunks=assistant.load_current(root) if mode=='active' else assistant.load_draft(root)
@@ -55,16 +92,21 @@ def answer(question,mode='active',model=None,root=ROOT,history=None,provider='lo
             sections.append(f'關於{title}：\n{body}\n來源：{c["source_id"]}｜{c["version"]}｜{c["source"]}')
         result['answer']='\n\n'.join(sections)
         result['display_answer'],result['evidence']=presentation.render(selected,root,effective)
-        if model and provider=='cloud':
+        if model and provider=='cloud' and interpretation_error not in {'AUTH_FAILED','ACCESS_DENIED','MODEL_OR_ENDPOINT_NOT_FOUND','RATE_LIMITED','CLOUD_HTTP_ERROR','TIMEOUT','NETWORK_ERROR','TLS_CERTIFICATE_ERROR','KEY_MISSING'}:
             try:
                 generated=cloud_generation.generate(effective,selected,model)
                 result['display_answer']=generated+'\n依據：'+'、'.join(c['source_id']+'｜'+c['version'] for c in selected)+'\n（雲端模型生成；來源格式已檢查，請對照完整條文。）'
                 result['engine']='Ollama Cloud 生成'
                 result['model_status']='已連接 '+model
                 result['generation_review_required']=True
-            except Exception:
+            except Exception as error:
                 result['model_status']='雲端模型未連接或回答檢查未通過，已回退到規章回答'
                 result['generation_fallback']=True
+                result['generation_error']=cloud_generation.error_code(error)
+        elif model and provider=='cloud' and interpretation_error:
+            result['model_status']='雲端連線失敗，已回退到規章回答'
+            result['generation_fallback']=True
+            result['generation_error']=interpretation_error
         result['sources']=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in selected]
     if context and 'display_answer' in result:
         result['display_answer']=f'接著你剛才問的「{context}」：\n\n'+result['display_answer']
@@ -99,7 +141,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path=='/api/status':
             m=assistant.store.read(ROOT/'metadata/regulation_manifest.json')
             return self.send_json(200,{'active_count':sum(bool(r['active']) for r in m['regulations']),
-                                       'draft_count':len(m['regulations']),'model':self.model,'provider':self.provider,'key_configured':bool(cloud_generation.os.environ.get('OLLAMA_API_KEY')),'app_version':app_version()})
+                                       'draft_count':len(m['regulations']),'model':self.model,'provider':self.provider,'key_configured':bool(cloud_generation.os.environ.get('OLLAMA_API_KEY')),'app_version':RUNNING_VERSION})
         files={'/':'index.html','/app.js':'app.js','/style.css':'style.css'}
         if self.path not in files:return self.send_json(404,{'error':'找不到頁面'})
         path=ROOT/'web'/files[self.path];body=path.read_bytes()
@@ -117,7 +159,7 @@ class Handler(BaseHTTPRequestHandler):
             question=data.get('question');mode=data.get('mode','active')
             if not isinstance(question,str) or not question.strip() or len(question)>1000:raise ValueError('請輸入 1–1000 字的問題')
             if mode not in ('active','draft'):raise ValueError('不支援的模式')
-            if 'history' not in data or (data.get('client_version') and data['client_version']!=app_version()):
+            if 'history' not in data or (data.get('client_version') and data['client_version']!=RUNNING_VERSION):
                 return self.send_json(200,dict(status='CLIENT_UPDATE_REQUIRED',answer='聊天頁已更新，目前這個頁面沒有載入新版上下文功能。請重新整理頁面，再依序提問；這不是規章沒有答案。',sources=[],mode=mode,engine='頁面版本確認',model_status='未啟用'))
             history=data.get('history',[])
             if not isinstance(history,list) or len(history)>6 or any(not isinstance(q,str) or len(q)>1000 for q in history):raise ValueError('對話格式不正確')

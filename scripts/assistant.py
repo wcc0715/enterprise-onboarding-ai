@@ -106,6 +106,13 @@ def respond(question, root=ROOT, mode='active'):
         return version_error
     if not chunks:
         return dict(status='NO_ACTIVE_REGULATIONS',answer='目前尚未發布可供查詢的 ACTIVE 規章，無法提供現行制度答案。請假問題可向 HR 確認。',sources=[])
+    if '事假' in q and '緊急請假' in q and any(t in q for t in ['建議','該怎麼辦','應該怎麼做']):
+        related=[c for c in chunks if c['source_id'] in {'LEAVE-001','LEAVE-002','LEAVE-005'}]
+        if {c['source_id'] for c in related}=={'LEAVE-001','LEAVE-002','LEAVE-005'}:
+            text='我的建議是：如果現在需要離開或無法到班，先儘速通知主管，說明情況及請假需求。若屬緊急情況，可以先通知，再依實際情況補登 HRM。\n\n你不必先把「事假」和「緊急請假」當成二選一：事假條文也有緊急事故的通知安排；目前資料未說明「緊急請假」是否為獨立假別，也未提供這個情況的假別認定標準。HRM 該選哪個假別，請向 HR 確認，我不能替你認定一定符合資格。'
+            sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in related]
+            text+='\n依據：'+'、'.join(c['source_id']+'｜版本 '+c['version'] for c in related)
+            return dict(status='LEAVE_ADVICE',answer=text,display_answer=text,sources=sources,conversation_topic='事假與緊急請假',evidence=[dict(source_id=c['source_id'],version=c['version'],text=c['text'].split('\n',1)[1].strip()) for c in related])
     missing_subject=query_subjects.unsupported_subsidy(question,chunks,root)
     if missing_subject:
         text=f'目前提供的規章沒有「{missing_subject}」制度或上限，我無法確認公司是否提供這項補助，也不能替你猜金額。資料也未指定這項業務的負責單位，需要先確認承辦窗口。'
@@ -179,8 +186,30 @@ def respond(question, root=ROOT, mode='active'):
             sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in related]
             text+='\n依據：'+ '、'.join(c['source_id']+'｜版本 '+c['version'] for c in related)
             return dict(status='ANNUAL_LEAVE_URGENT',answer=text,display_answer=text,sources=sources,conversation_topic='特休',requested_leave='特休',evidence=[dict(source_id=c['source_id'],version=c['version'],text=c['text'].split('\n',1)[1].strip()) for c in related])
+    if intent.pet_subject(question) and any(t in q for t in ['請假','事假','特休','病假']):
+        related=[c for c in chunks if c['source_id'] in {'LEAVE-002','LEAVE-005'}]
+        if {c['source_id'] for c in related}=={'LEAVE-002','LEAVE-005'}:
+            text='了解，你是因為狗狗或其他寵物的狀況需要請假。你可以透過 HRM 提出申請；如果情況緊急、來不及先完成申請，可以先通知主管，再依實際情況補登 HRM。相關流程仍須符合適用法令。'
+            advice=any(t in q for t in ['建議','該怎麼辦','應該怎麼做'])
+            if advice:
+                text='我的建議是先處理通知：如果你現在需要照顧寵物、無法到班，先儘速告訴主管你的情況與請假需求。若情況緊急、來不及先完成申請，可以先通知，再依實際情況補登 HRM，相關流程仍須符合適用法令。\n\n至於用哪種假，我目前不能替你決定：資料未提供寵物生病的假別認定標準。請向 HR 確認 HRM 應選的假別，不能直接把寵物生病套用成你本人的病假。'
+            elif selected_leave:
+                text+='\n\n你提到想請'+selected_leave+'；目前資料未提供寵物生病的假別認定標準，不能把寵物生病當成你本人生病來套用病假規定。適用假別不確定時，請向 HR 確認。'
+            else:
+                text+='\n\n你想使用事假還是特休？目前資料未提供寵物生病的假別認定標準；不確定該選哪種假，可以向 HR 確認。'
+            text+='\n依據：'+'、'.join(c['source_id']+'｜版本 '+c['version'] for c in related)
+            return dict(status='PET_LEAVE_ADVICE' if advice else 'PET_LEAVE_CLARIFY',answer=text,display_answer=text,sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in related],conversation_topic='請假',evidence=[dict(source_id=c['source_id'],version=c['version'],text=c['text'].split('\n',1)[1].strip()) for c in related])
     if intent.family_illness(question) and selected_leave!='特休':
-        return dict(status='FAMILY_LEAVE_CLARIFY',answer='我理解你是因為家人生病、需要請假照顧家人，對嗎？你打算使用特休、事假，還是想確認其他假別？目前提供的規章沒有說明照顧家人能否使用病假，我不能直接套用員工本人生病的證明要求；假別不確定時，請向 HR 確認。',sources=[],conversation_topic='請假')
+        related=[c for c in chunks if c['source_id'] in {'LEAVE-002','LEAVE-005'}]
+        if {c['source_id'] for c in related}=={'LEAVE-002','LEAVE-005'}:
+            advice=any(t in q for t in ['建議','該怎麼辦','應該怎麼做'])
+            text=('我的建議是先通知主管，說明你因家人的狀況需要請假。' if advice else '了解，你是因為家人生病需要請假。')
+            text+='你可以透過 HRM 提出申請；若情況緊急、來不及先完成申請，可以先通知主管，再依實際情況補登 HRM。相關流程仍須符合適用法令。'
+            text+='\n\n目前提供的規章沒有說明照顧家人能否使用病假，我不能直接套用員工本人生病的證明要求；假別不確定時，請向 HR 確認。'
+            if not selected_leave and not advice:
+                text+='你打算使用特休、事假，還是想確認其他假別？'
+            text+='\n依據：'+'、'.join(c['source_id']+'｜版本 '+c['version'] for c in related)
+            return dict(status='FAMILY_LEAVE_ADVICE' if advice else 'FAMILY_LEAVE_CLARIFY',answer=text,display_answer=text,sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in related],conversation_topic='請假',evidence=[dict(source_id=c['source_id'],version=c['version'],text=c['text'].split('\n',1)[1].strip()) for c in related])
     if any(t in q for t in ['系統','登入','軟體','程式']) and any(t in q for t in ['打不開','登不進','進不去','開不了','無法登入','不能登入','沒有權限']):
         guidance=routing.recommend(question,chunks,root)
         if guidance:

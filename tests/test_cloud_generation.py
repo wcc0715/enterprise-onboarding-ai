@@ -16,7 +16,7 @@ class CloudGenerationTests(unittest.TestCase):
         generation.assert_not_called()
         self.assertEqual(r['status'],'PERSONAL_DATA_UNAVAILABLE')
     def test_success_still_marks_draft_and_review(self):
-        with patch('cloud_generation.generate',return_value='建議提前三個工作天通知，不是強制。'):
+        with patch('semantic_intent.interpret',return_value=dict(source_ids=['LEAVE-004'],subject='unknown',task='leave',urgent=False,advice=False)),patch('cloud_generation.generate',return_value='建議提前三個工作天通知，不是強制。'):
             r=chatbot.answer('特休怎麼申請','draft',model='gemma4:31b',provider='cloud')
         self.assertIn('尚未發布或生效',r['display_answer'])
         self.assertTrue(r['generation_review_required'])

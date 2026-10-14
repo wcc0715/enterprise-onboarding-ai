@@ -1,9 +1,14 @@
 """辨識描述對象與明確假別；不推定申請資格。"""
 import retrieval
 
+def pet_subject(question):
+    """只辨識提問中的寵物對象，不將其視為員工本人或假別資格。"""
+    q=retrieval.normalize(question)
+    return any(t in q for t in ['狗狗','貓咪','寵物','我家狗','我家貓','我的狗','我的貓'])
+
 def family_illness(question):
     q=retrieval.normalize(question)
-    relatives=['家人','親人','孩子','小孩','父親','母親','爸爸','媽媽','配偶','太太','先生']
+    relatives=['家人','親人','孩子','小孩','父親','母親','爸爸','媽媽','配偶','太太','先生','弟弟','妹妹','哥哥','姐姐','姊姊','兄弟','姊妹','姐妹','兒子','女兒','爺爺','奶奶','外公','外婆','祖父','祖母','岳父','岳母','公公','婆婆']
     return any(t in q and '不是'+t not in q for t in relatives) and any(t in q for t in ['生病','發燒','不舒服','住院','就醫'])
 
 def specified_leave(question):

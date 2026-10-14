@@ -11,6 +11,24 @@ def resolve(question,history,root,mode):
     if direct['status'] in {'PERSONAL_DATA_UNAVAILABLE','ACTION_UNAVAILABLE','CONTACT_NOT_PROVIDED','SIMULATED_CONTACTS','CONTACT_CLARIFY'}:
         return question,None
     q=assistant.normalize(question)
+    if history and '不是我' in q and intent.family_illness(question+'生病'):
+        previous=history[-1]
+        if any(t in assistant.normalize(previous) for t in ['請假','事假','特休','病假']):
+            leave=intent.specified_leave(previous)
+            return '我要請'+(leave or '假')+'；家人生病；'+question,'請假'
+    if history and intent.pet_subject(question) and any(t in q for t in ['不是我','狗狗啦','貓咪啦','是寵物']):
+        previous=history[-1]
+        if any(t in assistant.normalize(previous) for t in ['請假','事假','特休','病假']):
+            # 更正對象優先於舊的疾病匹配，仍保留請假任務與明確假別。
+            leave=intent.specified_leave(previous)
+            return '我要請'+(leave or '假')+'；'+question,'請假'
+    advice_followup=q.rstrip('？?。！!') in {'那你的建議呢','你的建議呢','那你建議呢','你建議呢','你的建議是','那你的建議是','你有什麼建議','有什麼建議','那我該怎麼辦','那我應該怎麼做'}
+    if history and advice_followup:
+        previous=history[-1]
+        prior=assistant.respond(previous,root,mode)
+        # 保留上一題的具體選項，不縮成「請假管理」等廣泛類別。
+        if prior.get('sources'):
+            return previous+'；'+question,prior.get('conversation_topic') or '上一題'
     is_followup=q.startswith(('但是','但','那','所以','因為','因爲','就是','其實','這','它','還'))
     if history and is_followup:
         previous_version=versions.constraints(history[-1])
