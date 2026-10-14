@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """本機聊天服務：僅綁定 127.0.0.1；不保存問題或個資。"""
 import argparse
+import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
@@ -11,6 +12,10 @@ import conversation
 import presentation
 
 ROOT=Path(__file__).resolve().parents[1]
+
+def app_version():
+    files=sorted((ROOT/'web').glob('*'))+sorted((ROOT/'scripts').glob('*.py'))+sorted((ROOT/'config').glob('*.json'))
+    return hashlib.sha256(b''.join(p.read_bytes() for p in files if p.is_file())).hexdigest()[:12]
 
 def answer(question,mode='active',model=None,root=ROOT,history=None):
     effective,context=conversation.resolve(question,history or [],root,mode)
@@ -82,7 +87,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path=='/api/status':
             m=assistant.store.read(ROOT/'metadata/regulation_manifest.json')
             return self.send_json(200,{'active_count':sum(bool(r['active']) for r in m['regulations']),
-                                       'draft_count':len(m['regulations']),'model':self.model})
+                                       'draft_count':len(m['regulations']),'model':self.model,'app_version':app_version()})
         files={'/':'index.html','/app.js':'app.js','/style.css':'style.css'}
         if self.path not in files:return self.send_json(404,{'error':'找不到頁面'})
         path=ROOT/'web'/files[self.path];body=path.read_bytes()
@@ -100,6 +105,8 @@ class Handler(BaseHTTPRequestHandler):
             question=data.get('question');mode=data.get('mode','active')
             if not isinstance(question,str) or not question.strip() or len(question)>1000:raise ValueError('請輸入 1–1000 字的問題')
             if mode not in ('active','draft'):raise ValueError('不支援的模式')
+            if 'history' not in data or (data.get('client_version') and data['client_version']!=app_version()):
+                return self.send_json(200,dict(status='CLIENT_UPDATE_REQUIRED',answer='聊天頁已更新，目前這個頁面沒有載入新版上下文功能。請重新整理頁面，再依序提問；這不是規章沒有答案。',sources=[],mode=mode,engine='頁面版本確認',model_status='未啟用'))
             history=data.get('history',[])
             if not isinstance(history,list) or len(history)>6 or any(not isinstance(q,str) or len(q)>1000 for q in history):raise ValueError('對話格式不正確')
             self.send_json(200,answer(question,mode,self.model,history=history))
