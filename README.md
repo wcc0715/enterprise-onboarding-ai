@@ -164,3 +164,7 @@ config/department_routes.json 保存已提供規章支持的職掌與初步詢�
 已依使用者提供的九點內容修訂，審閱快照在 regulations/revisions/IT-006/v1.2-draft.md，實際舊內容在 baseline-0.1.0.md。現有資料沒有 IT-006 v1.1，不能冒稱保留了該版本；若日後提供，可補入真正歷史來源。條文標記 v1.2，整份 IT 文件 metadata 因工具三段版本格式記為 1.2.0，其他五條未改。
 
 差異見 docs/IT-006-v1.2-DIFF.md 與 changelog/IT-006-v1.2-report.json。v1.2 仍 DRAFT、ACTIVE 為 null，生效日期未提供；沒有發布或同步正式索引。UNK-012 已在草案解決，未代表現行制度生效。草案問答會使用新內容，摘要已綁定新條文雜湊。檢查腳本不將 revisions 審閱附件當作新增正式規章。
+
+## 模擬通訊錄
+
+依使用者授權建立 metadata/simulated_contact_directory.json v1.0.0，共七位虛構主管／承辦人，姓名隨機產生後固定保存。分機與 example.invalid 郵件仅為測試標示，不代表可撥通或寄達。草案模式可詢問「IT 負責人姓名與郵件」「HR 薪酬承辦人分機」；正式模式不回傳虛構資料。沒有手機／外線電話，也未設定員工與主管配對。名稱不形成權限授予或真實身分證明，原評估與拒答證據仍保留為舊資料狀態。

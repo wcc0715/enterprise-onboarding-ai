@@ -1,0 +1,158 @@
+{
+  "service": {
+    "active_count": 0,
+    "draft_count": 7,
+    "model": null,
+    "app_version": "40da79d41d08"
+  },
+  "records": [
+    {
+      "request": {
+        "question": "IT 負責人姓名與郵件",
+        "mode": "draft",
+        "history": [],
+        "client_version": "40da79d41d08"
+      },
+      "raw_response": "{\"status\": \"SIMULATED_CONTACTS\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\\n\\nIT 主管／部門負責人：王俊維\\n模擬郵件：it.lead@example.invalid\\n模擬分機：2101\\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\\n\\nIT 主管／部門負責人：王俊維\\n模擬郵件：it.lead@example.invalid\\n模擬分機：2101\\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）\", \"sources\": [], \"contacts\": [{\"id\": \"CONTACT-001\", \"department\": \"IT\", \"role\": \"IT 主管／部門負責人\", \"name\": \"王俊維\", \"email\": \"it.lead@example.invalid\", \"extension\": \"2101\", \"aliases\": [\"it\", \"資訊\", \"資訊部\"], \"is_simulated\": true}], \"contact_directory_version\": \"1.0.0\", \"is_simulated\": true, \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "SIMULATED_CONTACTS",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\n\nIT 主管／部門負責人：王俊維\n模擬郵件：it.lead@example.invalid\n模擬分機：2101\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\n\nIT 主管／部門負責人：王俊維\n模擬郵件：it.lead@example.invalid\n模擬分機：2101\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）",
+        "sources": [],
+        "contacts": [
+          {
+            "id": "CONTACT-001",
+            "department": "IT",
+            "role": "IT 主管／部門負責人",
+            "name": "王俊維",
+            "email": "it.lead@example.invalid",
+            "extension": "2101",
+            "aliases": [
+              "it",
+              "資訊",
+              "資訊部"
+            ],
+            "is_simulated": true
+          }
+        ],
+        "contact_directory_version": "1.0.0",
+        "is_simulated": true,
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "request": {
+        "question": "HR 薪酬承辦人員分機",
+        "mode": "draft",
+        "history": [],
+        "client_version": "40da79d41d08"
+      },
+      "raw_response": "{\"status\": \"SIMULATED_CONTACTS\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\\n\\nHR 主管／部門負責人：林雅婷\\n模擬郵件：hr.lead@example.invalid\\n模擬分機：2201\\n\\n薪酬承辦人員：劉柏宇\\n模擬郵件：hr.payroll@example.invalid\\n模擬分機：2202\\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\\n\\nHR 主管／部門負責人：林雅婷\\n模擬郵件：hr.lead@example.invalid\\n模擬分機：2201\\n\\n薪酬承辦人員：劉柏宇\\n模擬郵件：hr.payroll@example.invalid\\n模擬分機：2202\\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）\", \"sources\": [], \"contacts\": [{\"id\": \"CONTACT-002\", \"department\": \"HR\", \"role\": \"HR 主管／部門負責人\", \"name\": \"林雅婷\", \"email\": \"hr.lead@example.invalid\", \"extension\": \"2201\", \"aliases\": [\"hr\", \"人資\", \"人事\"], \"is_simulated\": true}, {\"id\": \"CONTACT-003\", \"department\": \"HR\", \"role\": \"薪酬承辦人員\", \"name\": \"劉柏宇\", \"email\": \"hr.payroll@example.invalid\", \"extension\": \"2202\", \"aliases\": [\"薪酬\", \"薪資\", \"薪水\"], \"is_simulated\": true}], \"contact_directory_version\": \"1.0.0\", \"is_simulated\": true, \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "SIMULATED_CONTACTS",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\n\nHR 主管／部門負責人：林雅婷\n模擬郵件：hr.lead@example.invalid\n模擬分機：2201\n\n薪酬承辦人員：劉柏宇\n模擬郵件：hr.payroll@example.invalid\n模擬分機：2202\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\n\nHR 主管／部門負責人：林雅婷\n模擬郵件：hr.lead@example.invalid\n模擬分機：2201\n\n薪酬承辦人員：劉柏宇\n模擬郵件：hr.payroll@example.invalid\n模擬分機：2202\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）",
+        "sources": [],
+        "contacts": [
+          {
+            "id": "CONTACT-002",
+            "department": "HR",
+            "role": "HR 主管／部門負責人",
+            "name": "林雅婷",
+            "email": "hr.lead@example.invalid",
+            "extension": "2201",
+            "aliases": [
+              "hr",
+              "人資",
+              "人事"
+            ],
+            "is_simulated": true
+          },
+          {
+            "id": "CONTACT-003",
+            "department": "HR",
+            "role": "薪酬承辦人員",
+            "name": "劉柏宇",
+            "email": "hr.payroll@example.invalid",
+            "extension": "2202",
+            "aliases": [
+              "薪酬",
+              "薪資",
+              "薪水"
+            ],
+            "is_simulated": true
+          }
+        ],
+        "contact_directory_version": "1.0.0",
+        "is_simulated": true,
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "request": {
+        "question": "IT 王先生手機",
+        "mode": "draft",
+        "history": [],
+        "client_version": "40da79d41d08"
+      },
+      "raw_response": "{\"status\": \"SIMULATED_CONTACTS\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\\n\\nIT 主管／部門負責人：王俊維\\n模擬郵件：it.lead@example.invalid\\n模擬分機：2101\\n\\n目前只建立模擬分機與郵件，沒有手機或外線電話。\\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\\n\\nIT 主管／部門負責人：王俊維\\n模擬郵件：it.lead@example.invalid\\n模擬分機：2101\\n\\n目前只建立模擬分機與郵件，沒有手機或外線電話。\\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）\", \"sources\": [], \"contacts\": [{\"id\": \"CONTACT-001\", \"department\": \"IT\", \"role\": \"IT 主管／部門負責人\", \"name\": \"王俊維\", \"email\": \"it.lead@example.invalid\", \"extension\": \"2101\", \"aliases\": [\"it\", \"資訊\", \"資訊部\"], \"is_simulated\": true}], \"contact_directory_version\": \"1.0.0\", \"is_simulated\": true, \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "SIMULATED_CONTACTS",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\n\nIT 主管／部門負責人：王俊維\n模擬郵件：it.lead@example.invalid\n模擬分機：2101\n\n目前只建立模擬分機與郵件，沒有手機或外線電話。\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n以下是 PoC 模擬聯絡資料，全部為虛構，郵件與分機不能當作真實聯絡方式：\n\nIT 主管／部門負責人：王俊維\n模擬郵件：it.lead@example.invalid\n模擬分機：2101\n\n目前只建立模擬分機與郵件，沒有手機或外線電話。\n資料來源：模擬通訊錄 v1.0.0（metadata/simulated_contact_directory.json）",
+        "sources": [],
+        "contacts": [
+          {
+            "id": "CONTACT-001",
+            "department": "IT",
+            "role": "IT 主管／部門負責人",
+            "name": "王俊維",
+            "email": "it.lead@example.invalid",
+            "extension": "2101",
+            "aliases": [
+              "it",
+              "資訊",
+              "資訊部"
+            ],
+            "is_simulated": true
+          }
+        ],
+        "contact_directory_version": "1.0.0",
+        "is_simulated": true,
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "request": {
+        "question": "HR 主管姓名",
+        "mode": "active",
+        "history": [],
+        "client_version": "40da79d41d08"
+      },
+      "raw_response": "{\"status\": \"CONTACT_NOT_PROVIDED\", \"answer\": \"目前沒有提供可確認的真實姓名或聯絡資訊，也沒有串接公司聯絡名冊。模擬通訊錄僅供草案測試，不能當作真實聯絡方式。\", \"display_answer\": \"目前沒有提供可確認的真實姓名或聯絡資訊，也沒有串接公司聯絡名冊。模擬通訊錄僅供草案測試，不能當作真實聯絡方式。\", \"sources\": [], \"context_topic\": null, \"mode\": \"active\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "CONTACT_NOT_PROVIDED",
+        "answer": "目前沒有提供可確認的真實姓名或聯絡資訊，也沒有串接公司聯絡名冊。模擬通訊錄僅供草案測試，不能當作真實聯絡方式。",
+        "display_answer": "目前沒有提供可確認的真實姓名或聯絡資訊，也沒有串接公司聯絡名冊。模擬通訊錄僅供草案測試，不能當作真實聯絡方式。",
+        "sources": [],
+        "context_topic": null,
+        "mode": "active",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    }
+  ]
+}

@@ -59,6 +59,6 @@ def equipment_liability(question):
 
 def contact_details_request(question):
     q=retrieval.normalize(question)
-    channels=['電話','手機','分機','信箱','email','聯絡方式','聯絡資訊']
+    channels=['電話','手機','分機','信箱','email','郵件地址','電子郵件','郵件信箱','聯絡方式','聯絡資訊']
     names=['叫什麼','姓名','名字','王先生','陳先生','李先生']
     return any(t in q for t in channels+names) and any(t in q for t in ['it','hr','資訊','行政','人資','薪酬','承辦','部門','聯絡','主管'])

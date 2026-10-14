@@ -9,9 +9,9 @@ class ContactDetailsTests(unittest.TestCase):
         for q in ['請給我 IT 王先生的手機和 HR 電話','IT 的電話幾號？HR 薪酬承辦人員叫什麼名字？','行政分機是多少','人資信箱是什麼','HR 承辦人姓名？']:
             with self.subTest(q=q):
                 r=chatbot.answer(q,'draft')
-                self.assertEqual(r['status'],'CONTACT_NOT_PROVIDED')
-                self.assertIn('沒有承辦人員姓名',r['display_answer'])
-                self.assertIn('沒有串接公司聯絡名冊',r['display_answer'])
+                self.assertEqual(r['status'],'SIMULATED_CONTACTS')
+                self.assertIn('全部為虛構',r['display_answer'])
+                self.assertIn('@example.invalid',r['display_answer'])
                 self.assertEqual(r['sources'],[])
     def test_department_process_not_blocked(self):
         self.assertNotEqual(chatbot.answer('薪資少發應聯絡誰','draft')['status'],'CONTACT_NOT_PROVIDED')

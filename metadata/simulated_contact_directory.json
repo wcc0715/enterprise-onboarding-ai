@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "version": "1.0.0",
+  "dataset_type": "SIMULATED",
+  "is_simulated": true,
+  "updated_date": "2026-10-14",
+  "note": "使用者授權隨機產生；全部姓名、郵件與分機為虛構測試資料，與真實人員無關。example.invalid 郵件不可作真實聯絡，分機不代表可撥通。只供草案測試，不授予任何系統權限或代表規章發布。",
+  "contacts": [
+    {
+      "id": "CONTACT-001",
+      "department": "IT",
+      "role": "IT 主管／部門負責人",
+      "name": "王俊維",
+      "email": "it.lead@example.invalid",
+      "extension": "2101",
+      "aliases": [
+        "it",
+        "資訊",
+        "資訊部"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "CONTACT-002",
+      "department": "HR",
+      "role": "HR 主管／部門負責人",
+      "name": "林雅婷",
+      "email": "hr.lead@example.invalid",
+      "extension": "2201",
+      "aliases": [
+        "hr",
+        "人資",
+        "人事"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "CONTACT-003",
+      "department": "HR",
+      "role": "薪酬承辦人員",
+      "name": "劉柏宇",
+      "email": "hr.payroll@example.invalid",
+      "extension": "2202",
+      "aliases": [
+        "薪酬",
+        "薪資",
+        "薪水"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "CONTACT-004",
+      "department": "ADMIN",
+      "role": "行政主管／部門負責人",
+      "name": "李佳蓉",
+      "email": "admin.lead@example.invalid",
+      "extension": "2301",
+      "aliases": [
+        "行政",
+        "admin"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "CONTACT-005",
+      "department": "TRAIN",
+      "role": "訓練承辦人員",
+      "name": "陳志遠",
+      "email": "training.contact@example.invalid",
+      "extension": "2401",
+      "aliases": [
+        "訓練",
+        "教育",
+        "課程",
+        "train"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "CONTACT-006",
+      "department": "SEC",
+      "role": "指定資安人員",
+      "name": "蘇承恩",
+      "email": "security.contact@example.invalid",
+      "extension": "2501",
+      "aliases": [
+        "資安",
+        "安全",
+        "sec"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "CONTACT-007",
+      "department": "FINANCE",
+      "role": "財務主管／部門負責人",
+      "name": "黃詩涵",
+      "email": "finance.lead@example.invalid",
+      "extension": "2601",
+      "aliases": [
+        "財務",
+        "finance"
+      ],
+      "is_simulated": true
+    }
+  ]
+}
