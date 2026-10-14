@@ -21,6 +21,8 @@ def load_current(root):
     manifest_path=root/'metadata/regulation_manifest.json'
     manifest_text=manifest_path.read_text(encoding='utf-8')
     manifest=json.loads(manifest_text)
+    if not any(r['active'] for r in manifest['regulations']):
+        return []
     index=store.read(root/'knowledge_base/current.json')
     if index['manifest_sha256']!=store.sha(manifest_text):
         raise ValueError('規章資料已變更，知識庫尚未同步，請管理者執行 sync。')
@@ -92,6 +94,11 @@ def respond(question, root=ROOT, mode='active'):
         c=next((c for c in chunks if c['source_id']=='IT-006'),None)
         known_style=store.read(root/'config/answer_style.json')['entries'].get('IT-006')
         item=next((i for i in store.read(root/'metadata/unresolved_items.json')['items'] if i['id']=='UNK-012'),None)
+        if c and item and item['status']=='RESOLVED_IN_DRAFT' and mode=='draft':
+            definition=[line for line in c['text'].splitlines() if line.startswith(('2. ','3. '))]
+            if len(definition)==2:
+                text='這份 v1.2 草案已補上定義：\n\n'+'\n'.join(line[3:] for line in definition)+'\n\n所以，不能只因為設備是筆電就認定敏感；還需要 IT 依實際資訊安全風險認定。\n依據：IT-006｜版本 '+c['version']
+                return dict(status='DEFINED_TERM_DRAFT',answer=text,display_answer=text,sources=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']}],evidence=[dict(source_id=c['source_id'],version=c['version'],text=c['text'].split('\n',1)[1].strip())])
         if c and item and item['status']=='UNRESOLVED' and known_style and store.sha(c['text'])==known_style['clause_sha256']:
             text='你問的是「敏感設備」的意思。這份規章只說敏感設備要另依授權要求管理，沒有提供定義、清單或判斷標準，所以我不能直接判定哪些設備算敏感設備。'
             related=[c]

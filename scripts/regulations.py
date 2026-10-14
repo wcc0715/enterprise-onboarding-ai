@@ -78,7 +78,7 @@ def check(args):
     after = {r['id']: r for r in current['regulations']}
     paths = set(git('ls-tree', '-r', '--name-only', args.base, '--', 'regulations').stdout.splitlines())
     paths |= {str(p.relative_to(ROOT)) for p in (ROOT/'regulations').rglob('*.md')}
-    paths = {p for p in paths if p.endswith('.md') and not p.startswith('regulations/releases/')}
+    paths = {p for p in paths if p.endswith('.md') and not p.startswith(('regulations/releases/','regulations/revisions/'))}
     rows = []
     for path in sorted(paths):
         previous = git('show', f'{args.base}:{path}', check=False)

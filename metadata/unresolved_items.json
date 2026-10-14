@@ -103,10 +103,13 @@
       "id": "UNK-012",
       "regulation": "IT",
       "question": "敏感設備的定義、範圍與認定標準",
-      "status": "UNRESOLVED",
-      "blocks_publication": null,
-      "consultation_unit": null,
-      "handling": "規章僅提到敏感設備另依授權要求管理，未提供定義與判斷標準。可依 IT 設備配置職掌初步引導詢問，但不認定 IT 為已確認的分類決定單位。"
+      "status": "RESOLVED_IN_DRAFT",
+      "blocks_publication": false,
+      "consultation_unit": "IT 部門",
+      "handling": "規章僅提到敏感設備另依授權要求管理，未提供定義與判斷標準。可依 IT 設備配置職掌初步引導詢問，但不認定 IT 為已確認的分類決定單位。",
+      "resolution": "使用者提供 IT-006 v1.2 修訂草案，已定義範圍並指定 IT 認定，必要時指定資安人員協助；未發布。",
+      "resolution_source": "regulations/revisions/IT-006/v1.2-draft.md",
+      "resolved_date": "2026-10-14"
     }
   ],
   "note": "未知事項維持 UNRESOLVED，不補造制度；依使用者確認，不阻擋發布，改由員工向負責單位確認。請假諮詢單位為 HR；其他項目沿用已提供的單位，null 表示尚未提供。正式發布仍須明確確認與生效日期。 新增 UNK-012 的發布阻擋與正式認定單位尚未確認；先前不阻擋發布的確認適用原有 11 項。",

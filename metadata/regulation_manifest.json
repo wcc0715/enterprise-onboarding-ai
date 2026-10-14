@@ -39,18 +39,33 @@
       "id": "IT",
       "name": "資訊設備管理",
       "draft": {
-        "version": "0.1.0",
+        "version": "1.2.0",
         "status": "DRAFT",
         "source": "regulations/IT.md",
         "updated_date": "2026-10-14",
-        "sha256": "ecb228a0d3e18cd26939fc9d9053c550cca2f89b62da26f4df6814e8115ef792",
+        "sha256": "71b1a05cf503689608496c3e90b5a8b4eb07db3dc65aaa2ae873b710f6f235a9",
         "effective_date": null,
-        "summary": "依使用者提供內容建立初始模擬規章",
+        "summary": "依使用者提供九點修訂 IT-006 v1.2：敏感設備定義、IT認定、首次核准與持續授權；其他條文未修改",
         "git_commit": null,
         "published_at": null
       },
       "active": null,
-      "history": []
+      "history": [],
+      "clause_revision_tracking": {
+        "id": "IT-006",
+        "draft_version": "1.2",
+        "status": "DRAFT",
+        "review_snapshot": "regulations/revisions/IT-006/v1.2-draft.md",
+        "actual_baseline_document_version": "0.1.0",
+        "actual_baseline_commit": "f5f6ab588d73fce6b754f8703effd5f7457842e5",
+        "actual_baseline_snapshot": "regulations/revisions/IT-006/baseline-0.1.0.md",
+        "requested_previous_version": "1.1",
+        "previous_version_availability": "NOT_PROVIDED",
+        "effective_date": null,
+        "published_at": null,
+        "review_snapshot_sha256": "c7d228c9bfdb89150a871e39a7f3477ecfc9091bfe0f7e0bc531f8dad1bab70c",
+        "actual_baseline_snapshot_sha256": "cf2a76e6cc967049e5c3421ea4f1f54f5c90e305e0688069415a9cda6fcfb874"
+      }
     },
     {
       "id": "SEC",
