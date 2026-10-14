@@ -8,6 +8,7 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError
 import assistant
 import conversation
+import presentation
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -47,9 +48,14 @@ def answer(question,mode='active',model=None,root=ROOT,history=None):
             body=c['text'].split('\n',1)[1].strip()
             sections.append(f'關於{title}：\n{body}\n來源：{c["source_id"]}｜{c["version"]}｜{c["source"]}')
         result['answer']='\n\n'.join(sections)
+        result['display_answer'],result['evidence']=presentation.render(selected,root,effective)
         result['sources']=[{k:c[k] for k in ['source_id','regulation_id','version','source','effective_date','git_commit']} for c in selected]
+    if context and 'display_answer' in result:
+        result['display_answer']=f'接著你剛才問的「{context}」：\n\n'+result['display_answer']
     if context:
         result['answer']=f'若您仍在詢問上一題的「{context}」：\n\n'+result['answer']
+    if mode=='draft' and 'display_answer' in result:
+        result['display_answer']='【草案測試：尚未發布或生效】\n\n'+result['display_answer']
     if mode=='draft':
         result['answer']='【草案測試：以下不代表已發布或生效制度】\n\n'+result['answer']
     return result
