@@ -128,8 +128,18 @@ def respond(question, root=ROOT, mode='active'):
                 answer='目前提供的公司規章尚未訂定統一補助上限。建議向 HR 確認。'
             return dict(status='UNRESOLVED',answer=answer,sources=[],unresolved_id=item['id'])
     if query['original'] in ['請假', '我要請假', '我要申請設備', '申請設備']:
-        return dict(status='CLARIFY',answer='請補充假別或設備類型，以便查找對應規章。請假細節可向 HR 確認。',sources=[])
+        return dict(status='CLARIFY',answer='我理解您可能想詢問請假申請或設備申請流程，是否正確？請補充假別或設備類型，以便查找對應規章。請假細節可向 HR 確認。',sources=[])
     hits=retrieval.rank(chunks,query,vocabulary)
+    if not hits:
+        candidates=[c for c in chunks if c['source_id'] in query['candidate_ids']]
+        if candidates:
+            topics=list(dict.fromkeys(c['text'].splitlines()[0].split(' ',2)[-1] for c in candidates))
+            understanding='、'.join(topics)
+            if set(query['candidate_ids'])=={'LEAVE-001','LEAVE-004'}:
+                question='您想問的是請假時間或流程嗎？預計使用特休、事假，還是其他假別？'
+            else:
+                question=f'我理解您可能在詢問「{understanding}」，這個理解是否正確？請告訴我具體情境，或說明您想問的其他事項。'
+            return dict(status='CLARIFY_INTENT',answer=question+'目前只找到可能相關的主題，資訊不足，尚不能判定適用規定。',sources=[],candidate_topics=topics,candidate_source_ids=[c['source_id'] for c in candidates],retrieval=query)
     if not hits:
         return dict(status='NOT_PROVIDED',answer=f'目前提供的{"現行規章" if mode=="active" else "草案資料"}中，找不到此問題的明確依據。請補充問題細節；若負責單位已確認，請向該單位詢問。',sources=[])
     hits.sort(key=lambda pair:(-pair[0],pair[1]['source_id']))

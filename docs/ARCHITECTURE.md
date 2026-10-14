@@ -19,3 +19,5 @@ AI 必須直接回答並引用 source_id/version/source。無現行證據就說�
 聊天介面位於 web/，後端 scripts/chatbot.py。mode=active 驗證正式索引；mode=draft 即時驗證並讀取草案，不寫入索引，回答加上未生效標示。回覆顯示規章內容與來源。可選 Ollama 僅透過本機固定端點回傳來源排序，任何未檢索 ID 都會拒絕；程式仍保留完整候選條文，不採用模型任意生成文字。目前檢索基於關鍵字與語意對照，未完成廣泛口語理解或向量模型。
 
 詞彙檢索層：原始問題 → NFKC／大小寫正規化 → 同義詞單次展開 → all_groups 意圖判斷 → HRM/未知項目分流 → 候選條文評分 → 完整條文回答。資料來源篩選在排名前完成；词彙展開不增加來源、不產生制度內容。config/retrieval_vocabulary.json 與規章分開版本管理。EXTRACTED JSON 的 retrieval 欄保留展開詞與意圖 ID，供測試診斷，不保存使用者問題。
+
+OR 候選召回：任一意圖群組或類別提示命中即加入 candidate_ids，完整匹配僅用於明確度與排序。弱匹配回傳 CLARIFY_INTENT，附 candidate_topics，sources=[]，不採用候選作為適用結論。前一題單一候選可在「對／是的」後重新檢索；多候選仍需選擇，不把點頭當成資格或事實核准。

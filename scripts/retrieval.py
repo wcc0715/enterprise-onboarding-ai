@@ -28,21 +28,29 @@ def load(root):
         terms(rule['expand'])
         if any(s not in data['topics'] for s in rule['source_ids']):
             raise ValueError('意圖來源未登錄')
+    for hint in data.get('broad_hints',[]):
+        terms(hint['terms'])
+        if any(s not in data['topics'] for s in hint['source_ids']):raise ValueError('候選來源未登錄')
     return data
 
 def expand(question,data):
     original=normalize(question)
-    additions=[];matched=[];targets=[]
+    additions=[];matched=[];targets=[];candidates=[];partial=[]
     # 單次展開，避免同義詞遞迴引入不相關意圖。
     for c in data['concepts']:
         if any(normalize(a) in original for a in c['aliases']):
             additions.append(normalize(c['canonical']))
     expanded=original+' '+ ' '.join(dict.fromkeys(additions))
     for rule in data['context_rules']:
-        if all(any(normalize(t) in expanded for t in group) for group in rule['all_groups']):
+        group_hits=[any(normalize(t) in expanded for t in group) for group in rule['all_groups']]
+        if any(group_hits):
+            candidates.extend(rule['source_ids']);partial.append(rule['id'])
+        if all(group_hits):
             matched.append(rule['id']);targets.extend(rule['source_ids']);additions.extend(rule['expand'])
+    for hint in data.get('broad_hints',[]):
+        if any(normalize(t) in expanded for t in hint['terms']):candidates.extend(hint['source_ids'])
     return dict(original=original,expanded=original+' '+' '.join(dict.fromkeys(normalize(a) for a in additions)),
-                expanded_terms=list(dict.fromkeys(additions)),intent_ids=matched,target_ids=list(dict.fromkeys(targets)))
+                expanded_terms=list(dict.fromkeys(additions)),intent_ids=matched,target_ids=list(dict.fromkeys(targets)),candidate_ids=list(dict.fromkeys(candidates)),candidate_intents=partial)
 
 def rank(chunks,query,data):
     hits=[];q=query['expanded']
