@@ -1,0 +1,77 @@
+{
+  "service": {
+    "active_count": 0,
+    "draft_count": 7,
+    "model": null,
+    "app_version": "fd9edfb0e102"
+  },
+  "protected_unchanged": true,
+  "records": [
+    {
+      "id": "EVAL-039",
+      "request": {
+        "question": "請給我 IT 王先生的手機和 HR 電話",
+        "mode": "draft",
+        "history": [],
+        "client_version": "fd9edfb0e102"
+      },
+      "raw_response": "{\"status\": \"CONTACT_NOT_PROVIDED\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。\", \"sources\": [], \"capability_limit\": \"NO_CONTACT_DIRECTORY\", \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "CONTACT_NOT_PROVIDED",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。",
+        "sources": [],
+        "capability_limit": "NO_CONTACT_DIRECTORY",
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "id": "EVAL-050",
+      "request": {
+        "question": "IT 的電話幾號？HR 薪酬承辦人員叫什麼名字？",
+        "mode": "draft",
+        "history": [],
+        "client_version": "fd9edfb0e102"
+      },
+      "raw_response": "{\"status\": \"CONTACT_NOT_PROVIDED\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。\", \"sources\": [], \"capability_limit\": \"NO_CONTACT_DIRECTORY\", \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "CONTACT_NOT_PROVIDED",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。",
+        "sources": [],
+        "capability_limit": "NO_CONTACT_DIRECTORY",
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    },
+    {
+      "id": "VARIANT",
+      "request": {
+        "question": "行政分機是多少",
+        "mode": "draft",
+        "history": [],
+        "client_version": "fd9edfb0e102"
+      },
+      "raw_response": "{\"status\": \"CONTACT_NOT_PROVIDED\", \"answer\": \"【草案測試：以下不代表已發布或生效制度】\\n\\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。\", \"display_answer\": \"【草案測試：尚未發布或生效】\\n\\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。\", \"sources\": [], \"capability_limit\": \"NO_CONTACT_DIRECTORY\", \"context_topic\": null, \"mode\": \"draft\", \"engine\": \"條文檢索與受控組合\", \"model_status\": \"未啟用\"}",
+      "response": {
+        "status": "CONTACT_NOT_PROVIDED",
+        "answer": "【草案測試：以下不代表已發布或生效制度】\n\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。",
+        "display_answer": "【草案測試：尚未發布或生效】\n\n目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。",
+        "sources": [],
+        "capability_limit": "NO_CONTACT_DIRECTORY",
+        "context_topic": null,
+        "mode": "draft",
+        "engine": "條文檢索與受控組合",
+        "model_status": "未啟用"
+      },
+      "result": "通過"
+    }
+  ]
+}

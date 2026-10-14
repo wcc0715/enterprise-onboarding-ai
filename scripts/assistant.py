@@ -76,6 +76,9 @@ def load_draft(root):
 def respond(question, root=ROOT, mode='active'):
     if mode not in {'active','draft'}:
         raise ValueError('不支援的模式。')
+    if intent.contact_details_request(question):
+        text='目前提供的資料沒有承辦人員姓名、電話、手機、分機或信箱，我無法提供可確認的聯絡資訊，也沒有串接公司聯絡名冊。你可以先確認公司是否有內部通訊錄或部門聯絡窗口；我不會替你猜姓名或電話。'
+        return dict(status='CONTACT_NOT_PROVIDED',answer=text,display_answer=text,sources=[],capability_limit='NO_CONTACT_DIRECTORY')
     personal=intent.personal_record_request(question)
     if personal:
         text='我目前尚未串接 HRM 或員工個人資料，無法查詢或提供'

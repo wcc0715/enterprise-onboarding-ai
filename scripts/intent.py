@@ -55,3 +55,10 @@ def equipment_liability(question):
     if '責任' in q and any(t in q for t in ['誰','單位','判定']):
         return False  # 責任認定單位尚未提供，不能把 IT 技術確認當作責任裁定。
     return any(t in q for t in ['電腦','筆電','螢幕','設備']) and any(t in q for t in ['賠','責任','摔壞','弄壞','人為損壞','正常耗損'])
+
+
+def contact_details_request(question):
+    q=retrieval.normalize(question)
+    channels=['電話','手機','分機','信箱','email','聯絡方式','聯絡資訊']
+    names=['叫什麼','姓名','名字','王先生','陳先生','李先生']
+    return any(t in q for t in channels+names) and any(t in q for t in ['it','hr','資訊','行政','人資','薪酬','承辦','部門','聯絡','主管'])

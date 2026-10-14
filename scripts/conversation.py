@@ -8,7 +8,7 @@ def resolve(question,history,root,mode):
     explicit_version=versions.constraints(question)
     if explicit_version['requested'] or explicit_version['excluded']:
         return question,None
-    if direct['status'] in {'PERSONAL_DATA_UNAVAILABLE','ACTION_UNAVAILABLE'}:
+    if direct['status'] in {'PERSONAL_DATA_UNAVAILABLE','ACTION_UNAVAILABLE','CONTACT_NOT_PROVIDED'}:
         return question,None
     q=assistant.normalize(question)
     is_followup=q.startswith(('但是','但','那','所以','因為','因爲','就是','其實','這','它','還'))
