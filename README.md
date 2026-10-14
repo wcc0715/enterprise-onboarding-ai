@@ -189,4 +189,4 @@ python3 scripts/start_cloud.py --model gemma4:31b --port 8767
 
 ## 面試展示網站
 
-公開部署準備已加入，部署步驟見 [部署說明](docs/DEPLOYMENT.md)。GitHub 是程式與歷史來源，並不是聊天網站。實際展示網址需等部署成功後填入。公開入口只查詢模擬 ACTIVE 規章，預設不啟用雲端模型；可在主機秘密設定中配置 Ollama。
+公開部署準備已加入，部署步驟見 [部署說明](docs/DEPLOYMENT.md)。GitHub 是程式與歷史來源，並不是聊天網站。已部署展示網址：[開啟企業新進人員 AI 知識助理](https://enterprise-onboarding-ai.onrender.com/)。公開入口只查詢模擬 ACTIVE 規章，預設不啟用雲端模型；可在主機秘密設定中配置 Ollama。
